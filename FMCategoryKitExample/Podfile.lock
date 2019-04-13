@@ -1,0 +1,18 @@
+PODS:
+  - FMCategoryKit (1.0.0):
+    - FMCategoryKit/no-arc (= 1.0.0)
+  - FMCategoryKit/no-arc (1.0.0)
+
+DEPENDENCIES:
+  - FMCategoryKit (from `./../`)
+
+EXTERNAL SOURCES:
+  FMCategoryKit:
+    :path: "./../"
+
+SPEC CHECKSUMS:
+  FMCategoryKit: 6af132805d7ec8bef89c077042aea5248e03d9b5
+
+PODFILE CHECKSUM: 2db903c51e784f8daa8e9c2815dd91b2ad99a6a9
+
+COCOAPODS: 1.5.3

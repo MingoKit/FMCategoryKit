@@ -1,0 +1,1 @@
+../../../../../FMCategoryKit/Foundation/NSString/FMCoreNSString/NSString+File.h

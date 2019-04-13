@@ -1,0 +1,1 @@
+../../../../../FMCategoryKit/UIKit/UIResponder/UIResponder+UIAdapt.h

@@ -1,0 +1,51 @@
+{
+  "name": "FMCategoryKit",
+  "summary": "A manager to get iOS keyboard views, frames and transform.",
+  "version": "1.0.0",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "袁凤鸣": "yfmingo@163.com"
+  },
+  "social_media_url": "https://www.yfmingo.cn/",
+  "homepage": "https://github.com/yfming93/FMCategoryKit",
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source": {
+    "git": "git@github.com:yfming93/FMCategoryKit.git",
+    "tag": "1.0.0"
+  },
+  "requires_arc": true,
+  "source_files": "FMCategoryKit/**/*.{h,m}",
+  "public_header_files": "FMCategoryKit/**/*.{h}",
+  "ios": {
+    "exclude_files": [
+      "FMCategoryKit/Foundation/NSObject+FMAddForARC.{h,m}",
+      "FMCategories/Foundation/NSThread+FMAdd.{h,m}"
+    ]
+  },
+  "libraries": "z",
+  "frameworks": [
+    "UIKit",
+    "CoreFoundation",
+    "QuartzCore",
+    "CoreGraphics",
+    "CoreImage",
+    "CoreText",
+    "ImageIO",
+    "Accelerate"
+  ],
+  "subspecs": [
+    {
+      "name": "no-arc",
+      "requires_arc": false,
+      "source_files": [
+        "FMCategoryKit/Foundation/NSObject+FMAddForARC.{h,m}",
+        "FMCategories/Foundation/NSThread+FMAdd.{h,m}"
+      ]
+    }
+  ]
+}
