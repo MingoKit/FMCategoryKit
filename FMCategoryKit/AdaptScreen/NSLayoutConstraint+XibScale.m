@@ -30,7 +30,8 @@
 //        {
 //            self.constant = ScaleWidthByOject(self.constant);
 //        }
-        self.constant = ScaleWidthByOject(self.constant);
+//        self.constant = ScaleWidthByOject(self.constant);
+        self.constant = self.constant;
 
     }
     return self;

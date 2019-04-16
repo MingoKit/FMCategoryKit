@@ -16,6 +16,23 @@
     return [UIColor colorWithCGColor:self.borderColor];
 }
 
+-(void)setBWidth:(CGFloat )bWidth {
+    self.borderWidth = bWidth;
+}
+-(CGFloat)bWidth {
+    return self.borderWidth;
+}
+
+
+-(void)setRound:(CGFloat)round {
+    self.cornerRadius = round;
+    
+}
+
+-(CGFloat)round {
+    return self.cornerRadius;
+}
+
 
 -(void)setSColor:(UIColor *)sColor {
     self.shadowColor = sColor.CGColor;
@@ -25,20 +42,15 @@
     return [UIColor colorWithCGColor:self.shadowColor];
 }
 
--(void)setBWidth:(CGFloat )bWidth {
-    self.borderWidth = bWidth;
-}
--(CGFloat)bWidth {
-    return self.borderWidth;
+-(void)setSOp:(CGFloat)sOp {
+    self.shadowOpacity = sOp;
 }
 
--(void)setRound:(CGFloat)round {
-    self.cornerRadius = round;
-
+-(void)setSOffset:(CGSize)sOffset {
+    self.shadowOffset = sOffset;
 }
 
--(CGFloat)round {
-    return self.cornerRadius;
-}
+
+
 
 @end

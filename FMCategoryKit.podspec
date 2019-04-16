@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FMCategoryKit'
-  s.summary      = 'A manager to get iOS keyboard views, frames and transform.'
+  s.summary      = 'A set of useful categories for Foundation and UIKit.'
   s.version      = '1.0.0'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.authors      = { '袁凤鸣' => 'yfmingo@163.com' }# 作者信息

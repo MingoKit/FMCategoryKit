@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @interface CALayer (FMForXib)
-
+/// borderColor
 @property(nonatomic, assign) UIColor *bColor;
-@property(nonatomic, assign) UIColor *sColor;
+/// borderWidth
 @property(nonatomic, assign) CGFloat bWidth;
+
+/// cornerRadius
 @property(nonatomic, assign) CGFloat round;
+
+/// shadowColor
+@property(nonatomic, assign) UIColor *sColor;
+/// shadowOpacity
+@property(nonatomic, assign) CGFloat sOp;
+/// shadowOffset
+@property(nonatomic, assign) CGSize sOffset;
 @end
