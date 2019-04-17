@@ -26,7 +26,6 @@
 
 -(void)setRound:(CGFloat)round {
     self.cornerRadius = round;
-    
 }
 
 -(CGFloat)round {

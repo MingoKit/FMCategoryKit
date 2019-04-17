@@ -27,5 +27,7 @@
 + (UITextField *)fm_createTextFieldFrame:(CGRect)frame leftText:(NSString *)leftText leftTextColor:(UIColor *)leftTextColor leftTextfont:(UIFont *)leftTextfont leftSpace:(CGFloat)leftSpace leftAllWidth:(CGFloat)leftAllWidth inputTextColor:(UIColor *)inputTextColor inputTextfont:(UIFont *)inputTextfont placeholder:(NSString *)placeholder;
 
 - (UITextField *)fm_leftViewImageName:(NSString *)name;
+/// 设置 UITextField 默认的 占位符颜色
+- (void)fm_setPlaceholderLabelTextColor:(UIColor *)color;
 
 @end

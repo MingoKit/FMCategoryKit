@@ -189,5 +189,9 @@
     return self;
 }
 
-
+- (void)fm_setPlaceholderLabelTextColor:(UIColor *)color {
+    if (color) {
+        [self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
+    }
+}
 @end
