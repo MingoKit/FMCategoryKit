@@ -32,6 +32,14 @@
     return self.cornerRadius;
 }
 
+-(void)setCr:(CGFloat)cr {
+    self.cornerRadius = cr;
+    self.masksToBounds = YES;
+}
+
+-(CGFloat)cr {
+    return self.cornerRadius;
+}
 
 -(void)setSColor:(UIColor *)sColor {
     self.shadowColor = sColor.CGColor;

@@ -17,6 +17,9 @@
 /// cornerRadius
 @property(nonatomic, assign) CGFloat round;
 
+/// cornerRadius
+@property(nonatomic, assign) CGFloat cr;
+
 /// shadowColor
 @property(nonatomic, assign) UIColor *sColor;
 /// shadowOpacity
