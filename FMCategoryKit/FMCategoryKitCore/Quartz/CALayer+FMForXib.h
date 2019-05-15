@@ -26,4 +26,8 @@
 @property(nonatomic, assign) CGFloat sOp;
 /// shadowOffset
 @property(nonatomic, assign) CGSize sOffset;
+
+@property(nonatomic, strong) UIColor *sc;
+@property(nonatomic, strong) UIColor *bc;
+
 @end

@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface UIBarButtonItem (FMAdd)
 
+/** 快速创建导航栏按钮 */
++(instancetype _Nullable )fm_barButtonItemWithTitle:(NSString *_Nullable)title imageName:(NSString *_Nullable)imageName target:(nullable id)target action:(nonnull SEL)action fontSize:(CGFloat)fontSize titleNormalColor:(UIColor *_Nullable)normalColor titleHighlightedColor:(UIColor *_Nullable)highlightedColor;
+
 /**
  The block that invoked when the item is selected. The objects captured by block
  will retained by the ButtonItem.

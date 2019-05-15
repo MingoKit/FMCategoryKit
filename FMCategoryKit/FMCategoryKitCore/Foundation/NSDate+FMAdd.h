@@ -18,170 +18,170 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface NSDate (FMAdd)
 
-#pragma mark - Component Properties
-///=============================================================================
-/// @name Component Properties
-///=============================================================================
+/** 根据日期返回字符串 */
++ (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format;
 
-@property (nonatomic, readonly) NSInteger year; ///< Year component
-@property (nonatomic, readonly) NSInteger month; ///< Month component (1~12)
-@property (nonatomic, readonly) NSInteger day; ///< Day component (1~31)
-@property (nonatomic, readonly) NSInteger hour; ///< Hour component (0~23)
-@property (nonatomic, readonly) NSInteger minute; ///< Minute component (0~59)
-@property (nonatomic, readonly) NSInteger second; ///< Second component (0~59)
-@property (nonatomic, readonly) NSInteger nanosecond; ///< Nanosecond component
-@property (nonatomic, readonly) NSInteger weekday; ///< Weekday component (1~7, first day is based on user setting)
-@property (nonatomic, readonly) NSInteger weekdayOrdinal; ///< WeekdayOrdinal component
-@property (nonatomic, readonly) NSInteger weekOfMonth; ///< WeekOfMonth component (1~5)
-@property (nonatomic, readonly) NSInteger weekOfYear; ///< WeekOfYear component (1~53)
-@property (nonatomic, readonly) NSInteger yearForWeekOfYear; ///< YearForWeekOfYear component
-@property (nonatomic, readonly) NSInteger quarter; ///< Quarter component
-@property (nonatomic, readonly) BOOL isLeapMonth; ///< Weather the month is leap month
-@property (nonatomic, readonly) BOOL isLeapYear; ///< Weather the year is leap year
-@property (nonatomic, readonly) BOOL isToday; ///< Weather date is today (based on current locale)
-@property (nonatomic, readonly) BOOL isYesterday; ///< Weather date is yesterday (based on current locale)
+/** 对象方法，返回时间字符串 */
+- (NSString *)stringWithFormat:(NSString *)format;
 
-#pragma mark - Date modify
-///=============================================================================
-/// @name Date modify
-///=============================================================================
+/** 根据字符串返回NSDate */
++ (NSDate *)dateWithString:(NSString *)string format:(NSString *)format;
 
-/**
- Returns a date representing the receiver date shifted later by the provided number of years.
- 
- @param years  Number of years to add.
- @return Date modified by the number of desired years.
- */
-- (nullable NSDate *)dateByAddingYears:(NSInteger)years;
+/** 根据TimeInterval获取字符串,带有时区偏移 */
++ (NSString *)stringWithTimeInterval:(unsigned int)time Formatter:(NSString *)format;
 
-/**
- Returns a date representing the receiver date shifted later by the provided number of months.
- 
- @param months  Number of months to add.
- @return Date modified by the number of desired months.
- */
-- (nullable NSDate *)dateByAddingMonths:(NSInteger)months;
+/** 根据字符串和格式获取TimeInterval时间,带有时区偏移 */
++ (NSTimeInterval )timeIntervalFromString:(NSString *)timeStr Formatter:(NSString *)format;
 
-/**
- Returns a date representing the receiver date shifted later by the provided number of weeks.
- 
- @param weeks  Number of weeks to add.
- @return Date modified by the number of desired weeks.
- */
-- (nullable NSDate *)dateByAddingWeeks:(NSInteger)weeks;
+/** 当前TimeInterval时间,带有时区偏移 */
++ (NSTimeInterval )now;
 
-/**
- Returns a date representing the receiver date shifted later by the provided number of days.
- 
- @param days  Number of days to add.
- @return Date modified by the number of desired days.
- */
-- (nullable NSDate *)dateByAddingDays:(NSInteger)days;
+/** yyyy-MM-dd HH:mm:ss格式的当前时间 */
++ (NSString *)stringNowWithFullFormatter;
 
-/**
- Returns a date representing the receiver date shifted later by the provided number of hours.
- 
- @param hours  Number of hours to add.
- @return Date modified by the number of desired hours.
- */
-- (nullable NSDate *)dateByAddingHours:(NSInteger)hours;
+/** YYYY-MM-dd格式的日期字符串 */
+- (NSString *)formatYMD;
 
-/**
- Returns a date representing the receiver date shifted later by the provided number of minutes.
- 
- @param minutes  Number of minutes to add.
- @return Date modified by the number of desired minutes.
- */
-- (nullable NSDate *)dateByAddingMinutes:(NSInteger)minutes;
+/** YYYY-MM-dd格式的日期字符串 */
++ (NSString *)formatYMD:(NSDate *)date;
 
-/**
- Returns a date representing the receiver date shifted later by the provided number of seconds.
- 
- @param seconds  Number of seconds to add.
- @return Date modified by the number of desired seconds.
- */
-- (nullable NSDate *)dateByAddingSeconds:(NSInteger)seconds;
+/** 自定义格式的当前时间 */
++ (NSString *)stringNowWithFormatter:(NSString *)format;
 
+- (NSUInteger)day;
+- (NSUInteger)month;
+- (NSUInteger)year;
+- (NSUInteger)hour;
+- (NSUInteger)minute;
+- (NSUInteger)second;
++ (NSUInteger)day:(NSDate *)date;
++ (NSUInteger)month:(NSDate *)date;
++ (NSUInteger)year:(NSDate *)date;
++ (NSUInteger)hour:(NSDate *)date;
++ (NSUInteger)minute:(NSDate *)date;
++ (NSUInteger)second:(NSDate *)date;
 
-#pragma mark - Date Format
-///=============================================================================
-/// @name Date Format
-///=============================================================================
+/** 一年的总天数 */
+- (NSUInteger)daysInYear;
 
-/**
- Returns a formatted string representing this date.
- see http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns
- for format description.
- 
- @param format   String representing the desired date format.
- e.g. @"yyyy-MM-dd HH:mm:ss"
- 
- @return NSString representing the formatted date string.
- */
-- (nullable NSString *)stringWithFormat:(NSString *)format;
+/** 一年的总天数 */
++ (NSUInteger)daysInYear:(NSDate *)date;
 
-/**
- Returns a formatted string representing this date.
- see http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns
- for format description.
- 
- @param format    String representing the desired date format.
- e.g. @"yyyy-MM-dd HH:mm:ss"
- 
- @param timeZone  Desired time zone.
- 
- @param locale    Desired locale.
- 
- @return NSString representing the formatted date string.
- */
-- (nullable NSString *)stringWithFormat:(NSString *)format
-                               timeZone:(nullable NSTimeZone *)timeZone
-                                 locale:(nullable NSLocale *)locale;
+/** 判断是否是润年 */
+- (BOOL)isLeapYear;
 
-/**
- Returns a string representing this date in ISO8601 format.
- e.g. "2010-07-09T16:13:30+12:00"
- 
- @return NSString representing the formatted date string in ISO8601.
- */
-- (nullable NSString *)stringWithISOFormat;
+/** 判断是否是润年 */
++ (BOOL)isLeapYear:(NSDate *)date;
 
-/**
- Returns a date parsed from given string interpreted using the format.
- 
- @param dateString The string to parse.
- @param format     The string's date format.
- 
- @return A date representation of string interpreted using the format.
- If can not parse the string, returns nil.
- */
-+ (nullable NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format;
+/** 获取该日期是该年的第几周 */
+- (NSUInteger)weekOfYear;
 
-/**
- Returns a date parsed from given string interpreted using the format.
- 
- @param dateString The string to parse.
- @param format     The string's date format.
- @param timeZone   The time zone, can be nil.
- @param locale     The locale, can be nil.
- 
- @return A date representation of string interpreted using the format.
- If can not parse the string, returns nil.
- */
-+ (nullable NSDate *)dateWithString:(NSString *)dateString
-                             format:(NSString *)format
-                           timeZone:(nullable NSTimeZone *)timeZone
-                             locale:(nullable NSLocale *)locale;
+/** 获取该日期是该年的第几周 */
++ (NSUInteger)weekOfYear:(NSDate *)date;
 
-/**
- Returns a date parsed from given string interpreted using the ISO8601 format.
- 
- @param dateString The date string in ISO8601 format. e.g. "2010-07-09T16:13:30+12:00"
- 
- @return A date representation of string interpreted using the format.
- If can not parse the string, returns nil.
- */
-+ (nullable NSDate *)dateWithISOFormatString:(NSString *)dateString;
+/** 当前月一共有几周(可能为4,5,6) */
+- (NSUInteger)weeksOfMonth;
+
+/** 当前月一共有几周(可能为4,5,6) */
++ (NSUInteger)weeksOfMonth:(NSDate *)date;
+
+/** 获取该月的第一天 */
+- (NSDate *)begindayOfMonth;
+
+/** 获取该月的第一天 */
++ (NSDate *)begindayOfMonth:(NSDate *)date;
+
+/** 获取该月的最后一天 */
+- (NSDate *)lastdayOfMonth;
+
+/** 获取该月的最后一天 */
++ (NSDate *)lastdayOfMonth:(NSDate *)date;
+
+/** day天后的日期(若day为负数,则为|day|天前的日期) */
+- (NSDate *)dateAfterDay:(NSUInteger)day;
+
+/** day天后的日期(若day为负数,则为|day|天前的日期) */
++ (NSDate *)dateAfterDate:(NSDate *)date day:(NSInteger)day;
+
+/** month月后的日期(若month为负数,则为|month|月前的日期) */
+- (NSDate *)dateAfterMonth:(NSUInteger)month;
+
+/** month月后的日期(若month为负数,则为|month|月前的日期) */
++ (NSDate *)dateAfterDate:(NSDate *)date month:(NSInteger)month;
+
+/** numYears年后的日期 */
+- (NSDate *)offsetYears:(int)numYears;
+
+/** numYears年后的日期 */
++ (NSDate *)offsetYears:(int)numYears fromDate:(NSDate *)fromDate;
+
+/** numHours小时后的日期 */
+- (NSDate *)offsetHours:(int)hours;
+
+/** numHours小时后的日期 */
++ (NSDate *)offsetHours:(int)numHours fromDate:(NSDate *)fromDate;
+
+/** 距离该日期前几天 */
+- (NSUInteger)daysAgo;
+
+/** 距离该日期前几天 */
++ (NSUInteger)daysAgo:(NSDate *)date;
+
+/** 星期几 */
+- (NSInteger)weekday;
+
+/** 星期几 */
++ (NSInteger)weekday:(NSDate *)date;
+
+/** 获取星期几(字符串 */
+- (NSString *)dayFromWeekday;
+
+/** 获取星期几(字符串 */
++ (NSString *)dayFromWeekday:(NSDate *)date;
+
+/** 获取阴历 */
+- (NSString*)lunar;
+
+/** 日期是否相等 */
+- (BOOL)isSameDay:(NSDate *)anotherDate;
+
+/** 是否是今天 */
+- (BOOL)isToday;
+
+/** 增加几天之后的日期 */
+- (NSDate *)dateByAddingDays:(NSUInteger)days;
+
+/** 获取英文字符串月份 */
++ (NSString *)monthWithMonthNumber:(NSInteger)month;
+
+/** 获取指定月份的天数 */
+- (NSUInteger)daysInMonth:(NSUInteger)month;
+
+/** 获取指定月份的天数 */
++ (NSUInteger)daysInMonth:(NSDate *)date month:(NSUInteger)month;
+
+/** 获取当前月份的天数 */
+- (NSUInteger)daysInMonth;
+
+/** 获取当前月份的天数 */
++ (NSUInteger)daysInMonth:(NSDate *)date;
+
+/** 返回x分钟前/x小时前/昨天/x天前/x个月前/x年前 */
+- (NSString *)timeInfo;
+
+/** 返回x分钟前/x小时前/昨天/x天前/x个月前/x年前 */
++ (NSString *)timeInfoWithDate:(NSDate *)date;
+
+/** 返回x分钟前/x小时前/昨天/x天前/x个月前/x年前 */
++ (NSString *)timeInfoWithDateString:(NSString *)dateString;
+
+- (NSString *)ymdFormat;
+- (NSString *)hmsFormat;
+- (NSString *)ymdHmsFormat;
++ (NSString *)ymdFormat;
++ (NSString *)hmsFormat;
++ (NSString *)ymdHmsFormat;
+
 
 @end
 

@@ -57,6 +57,16 @@
     self.shadowOffset = sOffset;
 }
 
+-(void)setSc:(UIColor *)sc {
+    self.shadowColor = sc.CGColor;
+    self.shadowOpacity = 1.0;//阴影透明度，默认0
+    self.shadowOffset = CGSizeZero;//默认为0,-3
+}
+
+-(void)setBc:(UIColor *)bc {
+    self.borderColor = bc.CGColor;
+    self.borderWidth = 0.70f;
+}
 
 
 

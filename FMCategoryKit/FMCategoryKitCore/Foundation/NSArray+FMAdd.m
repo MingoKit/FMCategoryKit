@@ -169,4 +169,12 @@ YYSYNTH_DUMMY_CLASS(NSArray_FMAdd)
     }
 }
 
+- (NSArray *)fm_reverseArray {
+    NSMutableArray *arrayTemp = [NSMutableArray arrayWithCapacity:[self count]];
+    NSEnumerator *enumerator = [self reverseObjectEnumerator];
+    for (id element in enumerator) {
+        [arrayTemp addObject:element];
+    }
+    return arrayTemp;
+}
 @end

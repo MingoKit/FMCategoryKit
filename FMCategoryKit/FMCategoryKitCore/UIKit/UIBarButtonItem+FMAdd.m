@@ -46,6 +46,19 @@ static const int block_key;
 
 @implementation UIBarButtonItem (FMAdd)
 
++(instancetype _Nullable )fm_barButtonItemWithTitle:(NSString *_Nullable)title imageName:(NSString *_Nullable)imageName target:(nullable id)target action:(nonnull SEL)action fontSize:(CGFloat)fontSize titleNormalColor:(UIColor *_Nullable)normalColor titleHighlightedColor:(UIColor *_Nullable)highlightedColor {
+    
+    UIButton *button = [UIButton new];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button setTitleColor:normalColor forState:UIControlStateNormal];
+    [button setTitleColor:highlightedColor forState:UIControlStateHighlighted];
+    button.titleLabel.font = [UIFont systemFontOfSize:fontSize];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+    return [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
 - (void)setActionBlock:(void (^)(id sender))block {
     _YYUIBarButtonItemBlockTarget *target = [[_YYUIBarButtonItemBlockTarget alloc] initWithBlock:block];
     objc_setAssociatedObject(self, &block_key, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);

@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface CALayer (FMAdd)
 
+/** 左右抖动 */
+-(void)fm_shake;
+
+
 /**
  Take snapshot without transform, image's size equals to bounds.
  */

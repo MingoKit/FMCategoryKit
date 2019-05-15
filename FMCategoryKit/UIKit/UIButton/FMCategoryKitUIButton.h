@@ -15,7 +15,6 @@
 #import <FMCategoryKit/UIButton+FMForClickDelay.h>
 #import <FMCategoryKit/UIButton+FMImagePosition.h>
 #import <FMCategoryKit/UIButton+Indicator.h>
-#import <FMCategoryKit/UIButton+Item.h>
 #import <FMCategoryKit/UIButton+MiddleAligning.h>
 #import <FMCategoryKit/UIButton+Position.h>
 #import <FMCategoryKit/UIButton+Submitting.h>
@@ -30,7 +29,6 @@
 #import "UIButton+FMForClickDelay.h"
 #import "UIButton+FMImagePosition.h"
 #import "UIButton+Indicator.h"
-#import "UIButton+Item.h"
 #import "UIButton+MiddleAligning.h"
 #import "UIButton+Position.h"
 #import "UIButton+Submitting.h"

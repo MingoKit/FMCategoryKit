@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable NSArray *)arrayWithPlistString:(NSString *)plist;
 
+/// 数组逆向反转
+- (NSArray *)fm_reverseArray;
+
 /**
  Serialize the array to a binary property list data.
  

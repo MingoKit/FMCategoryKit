@@ -18,6 +18,19 @@ YYSYNTH_DUMMY_CLASS(CALayer_FMAdd)
 
 @implementation CALayer (FMAdd)
 
+-(void)fm_shake{
+    CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+    CGFloat shakeWidth = 16;
+    keyAnimation.values = @[@(-shakeWidth),@(0),@(shakeWidth),@(0),@(-shakeWidth),@(0),@(shakeWidth),@(0)];
+    //时长
+    keyAnimation.duration = .1f;
+    //重复
+    keyAnimation.repeatCount =2;
+    //移除
+    keyAnimation.removedOnCompletion = YES;
+    [self addAnimation:keyAnimation forKey:@"shake"];
+}
+
 - (UIImage *)snapshotImage {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
