@@ -1,7 +1,5 @@
 PODS:
-  - FMCategoryKit (1.0.0):
-    - FMCategoryKit/no-arc (= 1.0.0)
-  - FMCategoryKit/no-arc (1.0.0)
+  - FMCategoryKit (1.0.0)
 
 DEPENDENCIES:
   - FMCategoryKit (from `./../`)
@@ -11,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "./../"
 
 SPEC CHECKSUMS:
-  FMCategoryKit: 6af132805d7ec8bef89c077042aea5248e03d9b5
+  FMCategoryKit: 026eaf961868b1745eb5c835de7cd0b28ccfd78a
 
 PODFILE CHECKSUM: 2db903c51e784f8daa8e9c2815dd91b2ad99a6a9
 
