@@ -8,9 +8,44 @@
 
 #import "UIView+Frame.h"
 
+double fm_radians(float degrees) {
+    return ( degrees * 3.14159265 ) / 180.0;
+}
+
+CATransform3D fm_getTransForm3DWithAngle(CGFloat angle)
+{
+    CATransform3D  transform = CATransform3DIdentity;
+    transform.m24 = 4.5/2000;
+    transform  = CATransform3DRotate(transform, angle, 1, 0, 0);
+    return transform;
+}
+
+CATransform3D fm_getTransForm3DWithScale(CGFloat scale)
+{
+    CATransform3D  transform = CATransform3DIdentity;
+    transform  = CATransform3DMakeScale(scale, scale, 1.0);
+    return transform;
+}
+
+CATransform3D fm_getTransForm3DWithAngle_r(CGFloat angle)
+{
+    CATransform3D  transform = CATransform3DIdentity;
+    transform.m24 = 0.0;
+    transform  = CATransform3DRotate(transform, angle, 1, 0, 0);
+    return transform;
+}
+
+CGRect fm_CGRectMoveToCenter(CGRect rect, CGPoint center)
+{
+    CGRect newrect = CGRectZero;
+    newrect.origin.x = center.x-CGRectGetMidX(rect);
+    newrect.origin.y = center.y-CGRectGetMidY(rect);
+    newrect.size = rect.size;
+    return newrect;
+}
+
+
 @implementation UIView (Frame)
-
-
 
 - (CGFloat)x{
     return self.frame.origin.x;
@@ -107,7 +142,31 @@
     self.frame = frame;
 }
 
+
+
 #pragma mark - Shortcuts for frame properties
+// Query other frame locations
+- (CGPoint) bottomRight
+{
+    CGFloat x = self.frame.origin.x + self.frame.size.width;
+    CGFloat y = self.frame.origin.y + self.frame.size.height;
+    return CGPointMake(x, y);
+}
+
+
+- (CGPoint) bottomLeft
+{
+    CGFloat x = self.frame.origin.x;
+    CGFloat y = self.frame.origin.y + self.frame.size.height;
+    return CGPointMake(x, y);
+}
+
+- (CGPoint) topRight
+{
+    CGFloat x = self.frame.origin.x + self.frame.size.width;
+    CGFloat y = self.frame.origin.y;
+    return CGPointMake(x, y);
+}
 
 - (CGPoint)origin {
     return self.frame.origin;
@@ -144,6 +203,63 @@
 
 - (void)setCenterY:(CGFloat)centerY {
     self.center = CGPointMake(self.center.x, centerY);
+}
+
+
+
+// Move via offset
+- (void) fm_moveBy: (CGPoint) delta
+{
+    CGPoint newcenter = self.center;
+    newcenter.x += delta.x;
+    newcenter.y += delta.y;
+    self.center = newcenter;
+}
+
+// Scaling
+- (void) fm_scaleBy: (CGFloat) scaleFactor
+{
+    CGRect newframe = self.frame;
+    newframe.size.width *= scaleFactor;
+    newframe.size.height *= scaleFactor;
+    self.frame = newframe;
+}
+
+// Ensure that both dimensions fit within the given size by scaling down
+- (void) fm_fitInSize: (CGSize) aSize
+{
+    CGFloat scale;
+    CGRect newframe = self.frame;
+    
+    if (newframe.size.height && (newframe.size.height > aSize.height))
+    {
+        scale = aSize.height / newframe.size.height;
+        newframe.size.width *= scale;
+        newframe.size.height *= scale;
+    }
+    
+    if (newframe.size.width && (newframe.size.width >= aSize.width))
+    {
+        scale = aSize.width / newframe.size.width;
+        newframe.size.width *= scale;
+        newframe.size.height *= scale;
+    }
+    
+    self.frame = newframe;
+}
+
+- (UIImage *)fm_convertViewToImage
+{
+    CGSize s = self.bounds.size;
+    //下面方法，第一个参数表示区域大小。
+    //第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。
+    //第三个参数就是屏幕密度。
+    
+    UIGraphicsBeginImageContextWithOptions(s, NO, [UIScreen mainScreen].scale);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end

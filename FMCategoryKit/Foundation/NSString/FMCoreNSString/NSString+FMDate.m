@@ -438,6 +438,11 @@
     // timeStampString 是服务器返回的13位时间戳
 //    NSString *timeStampString  = @"1495453213000";
     
+    if ([timeStamp containsString:@"-"] && [timeStamp containsString:@":"] && [timeStamp containsString:@" "]) {
+        NSString *time = [timeStamp fm_currentDateFormatStringToOtherDateFormatString:timeStamp timeFormat:TimeFormatMM_dd_HH_mm];
+        return time;
+    }
+    
     // iOS 生成的时间戳是10位
     NSTimeInterval interval    =[timeStamp doubleValue] / 1000.0;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
@@ -451,6 +456,11 @@
 
 /// 把服务器给的13位时间戳字符串 格式化到天
 + (NSString *)fm_switchLongTimeStrToTimeStampByDay:(NSString *)timeStamp {
+    
+    if ([timeStamp containsString:@"-"] && [timeStamp containsString:@":"] && [timeStamp containsString:@" "]) {
+        NSString *time = [timeStamp fm_currentDateFormatStringToOtherDateFormatString:timeStamp timeFormat:TimeFormatyyyy_MM_dd];
+        return time;
+    }
     // timeStampString 是服务器返回的13位时间戳
     //    NSString *timeStampString  = @"1495453213000";
     
@@ -469,6 +479,11 @@
 + (NSString *)fm_switchLongTimeStrToTimeStampBySeconds:(NSString *)timeStamp {
     // timeStampString 是服务器返回的13位时间戳
     //    NSString *timeStampString  = @"1495453213000";
+    
+    if ([timeStamp containsString:@"-"] && [timeStamp containsString:@":"] && [timeStamp containsString:@" "]) {
+        NSString *time = [timeStamp fm_currentDateFormatStringToOtherDateFormatString:timeStamp timeFormat:TimeFormatyyyy_MM_dd_HH_mm_ss];
+        return time;
+    }
     
     // iOS 生成的时间戳是10位
     NSTimeInterval interval    =[timeStamp doubleValue] / 1000.0;

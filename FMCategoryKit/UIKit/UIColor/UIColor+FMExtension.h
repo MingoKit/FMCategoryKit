@@ -10,8 +10,35 @@
 
 @interface UIColor (FMExtension)
 
-/// 渐变颜色(开始颜色，结束颜色，渐变高度)
-+ (UIColor *)fm_gradientColorFromColor:(UIColor*)c1 toColor:(UIColor*)c2 withHeight:(int)height;
+/**
+ 渐变方式
+ 
+ - FMGradientChangeDirectionLevel:              水平渐变
+ - FMGradientChangeDirectionVertical:           竖直渐变
+ - FMGradientChangeDirectionUpwardDiagonalLine: 向下对角线渐变
+ - FMGradientChangeDirectionDownDiagonalLine:   向上对角线渐变
+ */
+typedef NS_ENUM(NSInteger, FMGradientChangeDirection) {
+    FMGradientChangeDirectionLevel,
+    FMGradientChangeDirectionVertical,
+    FMGradientChangeDirectionUpwardDiagonalLine,
+    FMGradientChangeDirectionDownDiagonalLine,
+};
+
+/**
+ 创建渐变颜色
+ 
+ @param size       渐变的size
+ @param direction  渐变方式
+ @param startcolor 开始颜色
+ @param endColor   结束颜色
+ @return 创建的渐变颜色
+ */
++ (instancetype)fm_colorGradientChangeWithSize:(CGSize)size
+                                     direction:(FMGradientChangeDirection)direction
+                                    startColor:(UIColor *)startcolor
+                                      endColor:(UIColor *)endColor;
+
 
 
 /**
@@ -21,5 +48,6 @@
  @return 返回的颜色色值
  */
 + (UIColor*)fm_mostColor:(UIImage *)image;
+
 
 @end

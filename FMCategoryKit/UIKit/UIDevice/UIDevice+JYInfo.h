@@ -112,5 +112,6 @@ typedef NS_ENUM(NSInteger, NetworkType) {
 
 /** 获取手机硬盘空闲空间, 返回的是字节数 */
 + (NSUInteger)freeDiskSpaceBytes;
-
+/// 判断刘海屏，返回YES表示是刘海屏
++ (BOOL)isNotchScreen;
 @end

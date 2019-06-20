@@ -95,4 +95,14 @@
 }
 
 
+- (void)fm_addSingleLine {
+    
+    NSString *textStr = self.text;
+    //中划线
+    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:textStr attributes:attribtDic];
+    // 赋值
+    self.attributedText = attribtStr;
+}
+
 @end

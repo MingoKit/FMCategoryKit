@@ -11,22 +11,49 @@
 @implementation UIColor (FMExtension)
 
 #pragma mark - 渐变颜色(开始颜色，结束颜色，渐变高度)
-+ (UIColor *)getJYGradientColorFromColor:(UIColor*)c1 toColor:(UIColor*)c2 withHeight:(int)height{
-    CGSize size = CGSizeMake(1, height);
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+
++ (instancetype)fm_colorGradientChangeWithSize:(CGSize)size
+                                     direction:(FMGradientChangeDirection)direction
+                                    startColor:(UIColor *)startcolor
+                                      endColor:(UIColor *)endColor {
     
-    NSArray* colors = [NSArray arrayWithObjects:(id)c1.CGColor, (id)c2.CGColor, nil];
-    CGGradientRef gradient = CGGradientCreateWithColors(colorspace, (__bridge CFArrayRef)colors, NULL);
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(0, 0), CGPointMake(0, size.height), 0);
+    if (CGSizeEqualToSize(size, CGSizeZero) || !startcolor || !endColor) {
+        return nil;
+    }
     
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = CGRectMake(0, 0, size.width, size.height);
     
-    CGGradientRelease(gradient);
-    CGColorSpaceRelease(colorspace);
+    CGPoint startPoint = CGPointZero;
+    if (direction == FMGradientChangeDirectionDownDiagonalLine) {
+        startPoint = CGPointMake(0.0, 1.0);
+    }
+    gradientLayer.startPoint = startPoint;
+    
+    CGPoint endPoint = CGPointZero;
+    switch (direction) {
+        case FMGradientChangeDirectionLevel:
+            endPoint = CGPointMake(1.0, 0.0);
+            break;
+        case FMGradientChangeDirectionVertical:
+            endPoint = CGPointMake(0.0, 1.0);
+            break;
+        case FMGradientChangeDirectionUpwardDiagonalLine:
+            endPoint = CGPointMake(1.0, 1.0);
+            break;
+        case FMGradientChangeDirectionDownDiagonalLine:
+            endPoint = CGPointMake(1.0, 0.0);
+            break;
+        default:
+            break;
+    }
+    gradientLayer.endPoint = endPoint;
+    
+    gradientLayer.colors = @[(__bridge id)startcolor.CGColor, (__bridge id)endColor.CGColor];
+    UIGraphicsBeginImageContext(size);
+    [gradientLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage*image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return [UIColor colorWithPatternImage:image];
 }
  

@@ -26,6 +26,8 @@
 
 -(void)setRound:(CGFloat)round {
     self.cornerRadius = round;
+//    self.masksToBounds = NO;
+
 }
 
 -(CGFloat)round {
@@ -58,9 +60,15 @@
 }
 
 -(void)setSc:(UIColor *)sc {
+//    self.shadowColor = sc.CGColor;
+//    self.shadowOpacity = 1.0;//阴影透明度，默认0
+//    self.shadowOffset = CGSizeZero;//默认为0,-3
+    self.cornerRadius = 4;
+    self.shadowOffset = CGSizeMake(0.0, 3.0);
     self.shadowColor = sc.CGColor;
-    self.shadowOpacity = 1.0;//阴影透明度，默认0
-    self.shadowOffset = CGSizeZero;//默认为0,-3
+    self.shadowOpacity = 0.8; // 必传 默认是0.0
+    
+
 }
 
 -(void)setBc:(UIColor *)bc {

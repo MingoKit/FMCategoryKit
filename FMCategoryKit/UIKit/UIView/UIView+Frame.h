@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+CGPoint fm_CGRectGetCenter(CGRect rect);
+CGRect  fm_CGRectMoveToCenter(CGRect rect, CGPoint center);
+double fm_radians(float degrees);
+CATransform3D fm_getTransForm3DWithAngle(CGFloat angle);
+CATransform3D fm_getTransForm3DWithAngle_r(CGFloat angle);
+CATransform3D fm_getTransForm3DWithScale(CGFloat scale);
+
 @interface UIView (Frame)
 
 @property (nonatomic ,assign) CGFloat x;
@@ -31,5 +38,13 @@
 @property (nonatomic) CGFloat width;
 @property (nonatomic) CGFloat height;
 
+@property (nonatomic,readonly) CGPoint bottomLeft;
+@property (nonatomic,readonly) CGPoint bottomRight;
+@property (nonatomic,readonly) CGPoint topRight;
+- (void)fm_moveBy: (CGPoint) delta;
+- (void)fm_scaleBy: (CGFloat) scaleFactor;
+- (void)fm_fitInSize: (CGSize) aSize;
+///  视图转成图片
+- (UIImage *)fm_convertViewToImage;
 
 @end

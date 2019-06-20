@@ -34,6 +34,22 @@
     }
     return res;
 }
+/** 判断一个字符串是纯数字1到9或者. */
+- (BOOL)fm_validateAllNumberAndDot {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
+    int i = 0;
+    while (i < self.length) {
+        NSString * string = [self substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
+}
 
 //密码
 - (BOOL)fm_validatePassword
@@ -55,7 +71,7 @@
  *  @brief  判断是否包含中文
  *  @return 是否包含中文
  */
-- (BOOL)isContainChinese {
+- (BOOL)fm_isContainChinese {
     NSUInteger length = [self length];
     for (NSUInteger i = 0; i < length; i++) {
         NSRange range = NSMakeRange(i, 1);
