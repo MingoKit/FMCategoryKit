@@ -73,7 +73,7 @@
 
 -(void)setBc:(UIColor *)bc {
     self.borderColor = bc.CGColor;
-    self.borderWidth = 0.70f;
+    self.borderWidth = 0.60f;
 }
 
 

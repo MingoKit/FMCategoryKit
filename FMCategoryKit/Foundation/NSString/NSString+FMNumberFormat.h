@@ -24,4 +24,11 @@
  @param maxFloatLength 保留几位小数
  */
 + (void)fm_textFieldInputFormat:(UITextField *)textField maxIntegerLength:(NSInteger)maxIntegerLength maxFloatLength:(NSInteger)maxFloatLength;
+
+-(NSString *)fm_pointNum2;
+-(NSString *)fm_pointNum4;
+-(NSString *)fm_pointNum6;
+-(NSString *)fm_pointNum8;
+/// 保留几位小数。不足的是否补全位0
+-(NSString *)fm_pointNum:(int)pointNum fillnum:(BOOL)fillnum;
 @end

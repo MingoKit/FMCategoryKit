@@ -10,7 +10,6 @@
 
 @interface UINavigationController (FMAdd)
 
-/** 设置状态栏（通知栏）颜色 */
-- (void)fm_setStatusBarBackgroundColor:(UIColor *)color;
+
 
 @end

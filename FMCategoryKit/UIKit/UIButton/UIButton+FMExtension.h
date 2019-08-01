@@ -12,10 +12,12 @@ typedef void(^CallBackBlock)(UIButton * button);
 typedef void (^TouchedButtonBlock)(void);
 
 
+
 @interface UIButton (FMExtension)
 
+
 /** 快速创建按钮 */
-+(instancetype)wh_buttonWithTitle:(NSString *)title backColor:(UIColor *)backColor backImageName:(NSString *)backImageName titleColor:(UIColor *)color fontSize:(int)fontSize frame:(CGRect)frame cornerRadius:(CGFloat)cornerRadius;
++(instancetype)fm_buttonWithTitle:(NSString *)title backColor:(UIColor *)backColor backImageName:(NSString *)backImageName titleColor:(UIColor *)color fontSize:(int)fontSize frame:(CGRect)frame cornerRadius:(CGFloat)cornerRadius;
 
 /** 快速创建button，highlighted相关设置在对象方法： fm_highlightedTitleColor */
 + (UIButton *)fm_initButtonNormalTitleColor:(UIColor *)normalColor  backgroundColor:(UIColor *)BGColor font:(CGFloat)font normalImage:(UIImage *)normalImage cornerRadius:(CGFloat)cornerRadius  addToSuperView:(UIView *)superView addTarget:(id)controller action:(SEL)sel normalTitle:(NSString *)normalTitle;
@@ -64,19 +66,50 @@ typedef void (^TouchedButtonBlock)(void);
 - (void)startTime:(NSInteger)timeout waitBlock:(void(^)(NSInteger remainTime))waitBlock finishBlock:(void(^)(void))finishBlock;
 
 /** 触发按钮点击事件 */
-- (void)wh_addActionHandler:(TouchedButtonBlock)touchHandler;
+- (void)fm_addActionHandler:(TouchedButtonBlock)touchHandler;
 
 /** 显示菊花 */
-- (void)wh_showIndicator;
+- (void)fm_showIndicator;
 
 /** 隐藏菊花 */
-- (void)wh_hideIndicator;
+- (void)fm_hideIndicator;
+
+
+/**
+ 按钮倒计时
+ @param timeLine 倒计时时间 如：60
+ @param normalTitle 倒计时结束后 显示的文字
+ @param countdownSubtitle 倒计时期间 除去数字后 显示的文字 如：60S后刷新，那就是 S后刷新
+ @param normalColor 倒计时结束后 文字颜色
+ @param countdownColor 倒计时期间 文字颜色
+ @param isFlashing 文字是否闪动
+ */
+- (void)fm_countdownTime:(NSInteger)timeLine normalTitle:(NSString *)normalTitle countdownSubtitle:(NSString *)countdownSubtitle normalColor:(UIColor *)normalColor countdownColor:(UIColor *)countdownColor isFlashing:(BOOL)isFlashing;
+/**
+ 按钮倒计时
+ @param timeLine 倒计时时间 如：60
+ @param normalTitle 倒计时结束后 显示的文字
+ @param beforeTitle 倒计时期间 数字前面 显示的文字 如：将在60S后刷新，那就是 将在
+ @param behindTitle 倒计时期间 数字后面 显示的文字 如：将在60S后刷新，那就是 S后刷新
+ @param normalColor 倒计时结束后 文字颜色
+ @param countdownColor 倒计时期间 文字颜色
+ @param isFlashing 文字是否闪动
+ @param waitBlock 每秒执行的 waitBlock
+ @param finishBlock 倒计时结束 finishBlock 【中途手动结束调用 closeBlock 】
+ */
+- (void)fm_countdownTime:(NSInteger)timeLine normalTitle:(NSString *)normalTitle countNumBeforeTitle:(NSString *)beforeTitle countNumBehindTitle:(NSString *)behindTitle normalColor:(UIColor *)normalColor countdownColor:(UIColor *)countdownColor isFlashing:(BOOL)isFlashing cuntingEnabled:(BOOL)cuntingEnabled waitBlock:(void(^)(NSInteger remainTime))waitBlock finishBlock:(void(^)(void))finishBlock;
+
+typedef void(^CloseBlock)(id objc);
+@property (copy, nonatomic) CloseBlock closeBlock;
+
 
 /** 改变按钮的响应区域,上左下右分别增加或减小多少 正数为增加 负数为减小 */
 @property (nonatomic, assign) UIEdgeInsets clickEdgeInsets;
 
 /** 角标 */
 @property (strong, nonatomic) UILabel *badge;
+
+
 
 /** 角标的值 */
 @property (nonatomic) NSString *badgeValue;

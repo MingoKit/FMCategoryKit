@@ -15,6 +15,7 @@ static NSString *const IndicatorViewKey = @"indicatorView";
 static NSString *const ButtonTextObjectKey = @"buttonTextObject";
 
 NSString const *UIButton_badgeKey = @"UIButton_badgeKey";
+NSString const *UIButton_closeBlockKey = @"UIButton_closeBlockKey";
 NSString const *UIButton_badgeBGColorKey = @"UIButton_badgeBGColorKey";
 NSString const *UIButton_badgeTextColorKey = @"UIButton_badgeTextColorKey";
 NSString const *UIButton_badgeFontKey = @"UIButton_badgeFontKey";
@@ -274,7 +275,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 
 
 
-+(instancetype)wh_buttonWithTitle:(NSString *)title backColor:(UIColor *)backColor backImageName:(NSString *)backImageName titleColor:(UIColor *)color fontSize:(int)fontSize frame:(CGRect)frame cornerRadius:(CGFloat)cornerRadius {
++(instancetype)fm_buttonWithTitle:(NSString *)title backColor:(UIColor *)backColor backImageName:(NSString *)backImageName titleColor:(UIColor *)color fontSize:(int)fontSize frame:(CGRect)frame cornerRadius:(CGFloat)cornerRadius {
     
     UIButton *button = [UIButton new];
     [button setTitle:title forState:UIControlStateNormal];
@@ -328,15 +329,15 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 
-- (void)wh_addActionHandler:(TouchedButtonBlock)touchHandler
+- (void)fm_addActionHandler:(TouchedButtonBlock)touchHandler
 {
-    objc_setAssociatedObject(self, @selector(wh_addActionHandler:), touchHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(fm_addActionHandler:), touchHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
     [self addTarget:self action:@selector(blockActionTouched:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)blockActionTouched:(UIButton *)btn
 {
-    TouchedButtonBlock block = objc_getAssociatedObject(self, @selector(wh_addActionHandler:));
+    TouchedButtonBlock block = objc_getAssociatedObject(self, @selector(fm_addActionHandler:));
     if (block)
     {
         block();
@@ -345,7 +346,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 
 
 
-- (void)wh_showIndicator
+- (void)fm_showIndicator
 {
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     indicator.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
@@ -361,7 +362,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
     [self addSubview:indicator];
 }
 
-- (void)wh_hideIndicator
+- (void)fm_hideIndicator
 {
     NSString *currentButtonText = (NSString *)objc_getAssociatedObject(self, &ButtonTextObjectKey);
     UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)objc_getAssociatedObject(self, &IndicatorViewKey);
@@ -460,6 +461,14 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 #pragma mark - getters/setters
+-(CloseBlock)closeBlock {
+    return objc_getAssociatedObject(self, &UIButton_closeBlockKey);
+}
+-(void)setCloseBlock:(CloseBlock )closeBlock
+{
+    objc_setAssociatedObject(self, &UIButton_closeBlockKey, closeBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 -(UILabel*) badge {
     return objc_getAssociatedObject(self, &UIButton_badgeKey);
 }
@@ -601,7 +610,6 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 
-
 - (UIEdgeInsets)clickEdgeInsets
 {
     return [objc_getAssociatedObject(self, @selector(clickEdgeInsets)) UIEdgeInsetsValue];
@@ -626,5 +634,74 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 
+#pragma mark - button倒计时
+- (void)fm_countdownTime:(NSInteger)timeLine normalTitle:(NSString *)normalTitle countdownSubtitle:(NSString *)countdownSubtitle normalColor:(UIColor *)normalColor countdownColor:(UIColor *)countdownColor isFlashing:(BOOL)isFlashing {
+    [self fm_countdownTime:timeLine normalTitle:normalTitle countNumBeforeTitle:nil countNumBehindTitle:countdownSubtitle normalColor:normalColor countdownColor:countdownColor isFlashing:isFlashing cuntingEnabled:NO waitBlock:^(NSInteger remainTime) {
+        
+    } finishBlock:^{
+        
+    }];
+}
+
+
+- (void)fm_countdownTime:(NSInteger)timeLine normalTitle:(NSString *)normalTitle countNumBeforeTitle:(NSString *)beforeTitle countNumBehindTitle:(NSString *)behindTitle normalColor:(UIColor *)normalColor countdownColor:(UIColor *)countdownColor isFlashing:(BOOL)isFlashing cuntingEnabled:(BOOL)cuntingEnabled waitBlock:(void(^)(NSInteger remainTime))waitBlock finishBlock:(void(^)(void))finishBlock {
+    __weak __typeof(self)weakSelf = self;
+    //倒计时时间
+    __block NSInteger timeOut = timeLine;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0, 0, queue);
+    //每秒执行一次
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL,0), 1.0 * NSEC_PER_SEC,0);
+    dispatch_source_set_event_handler(_timer, ^{
+        
+        //倒计时结束，关闭
+        if (timeOut == 0) {
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (normalColor)  self.backgroundColor = normalColor;
+                [self setTitle:normalTitle forState:UIControlStateNormal];
+                self.userInteractionEnabled =YES;
+                if (finishBlock) {
+                    finishBlock();
+                }
+            });
+        } else {
+            NSInteger minutes = timeOut / 60;
+            NSInteger seconds = ((timeOut == timeLine) && timeOut<=60) ? timeOut: (timeOut % 60);
+            NSString *timeStr = [NSString stringWithFormat:@"%02ld", seconds];
+            if (minutes) {
+                timeStr = [NSString stringWithFormat:@"%02ld:%02ld", minutes,seconds];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (countdownColor)  self.backgroundColor = countdownColor;
+                NSString *obstr = [NSString stringWithFormat:@"%@%@%@",(beforeTitle.length ? beforeTitle : @""),timeStr,(behindTitle.length ? behindTitle : @"")];
+                if (!isFlashing) {
+                    self.titleLabel.text = obstr ;
+                }
+                [self setTitle:obstr forState:UIControlStateNormal];
+              
+                if (cuntingEnabled) {
+                    self.userInteractionEnabled = YES;
+                }else{
+                    self.userInteractionEnabled =NO;
+                }
+            });
+            timeOut--;
+            if (waitBlock && timeOut) {
+                waitBlock(timeOut);
+            }
+            
+            weakSelf.closeBlock = ^(id objc) {
+                dispatch_source_cancel(_timer);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (normalColor)  weakSelf.backgroundColor = normalColor;
+                    [weakSelf setTitle:normalTitle forState:UIControlStateNormal];
+                    weakSelf.userInteractionEnabled =YES;
+                });
+            };
+        }
+    });
+    dispatch_resume(_timer);
+}
 
 @end

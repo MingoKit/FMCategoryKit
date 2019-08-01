@@ -8,6 +8,8 @@
 #import "UIViewController+FMAdd.h"
 #define kNavigationBarDefaultTitleColor [UIColor whiteColor]
 #define kNavigationBarDefaultTitleFont  [UIFont systemFontOfSize:16.0f]
+static NSString *nameKey = @"nameKey"; //那么的key
+#import <objc/runtime.h>
 
 typedef void (^ActionBlock)(void);
 @interface UIButton (ZPButton)
@@ -19,7 +21,6 @@ typedef void (^ActionBlock)(void);
 - (void)handleControlEvent:(UIControlEvents)controlEvent withBlock:(ActionBlock)action;
 @end
 
-#import <objc/runtime.h>
 static char overviewKey;
 @implementation UIButton (ZPButton)
 - (void)handleControlEvent:(UIControlEvents)event withBlock:(ActionBlock)block {
@@ -36,6 +37,21 @@ static char overviewKey;
 
 
 @implementation UIViewController (FMAdd)
+
+/**
+ setter方法
+ */
+- (void)setKtype:(NSInteger)ktype {
+    objc_setAssociatedObject(self, &nameKey, @(ktype), OBJC_ASSOCIATION_ASSIGN);
+}
+
+/**
+ getter方法
+ */
+- (NSInteger)ktype {
+    return [objc_getAssociatedObject(self, &nameKey) integerValue];
+}
+
 #pragma mark - 获取当前屏幕显示的VC
 + (UIViewController *)fm_getCurrentViewController {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -339,6 +355,15 @@ static char overviewKey;
     }
     else {
         return [sb instantiateInitialViewController];
+    }
+}
+
+#pragma mark - 设置状态栏（通知栏）颜色
+- (void)fm_setStatusBarBackgroundColor:(UIColor *)color {
+    
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = color;
     }
 }
 

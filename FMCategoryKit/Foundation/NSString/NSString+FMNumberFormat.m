@@ -82,4 +82,90 @@
         }
     }
 }
+
+-(NSString *)fm_pointNum2 {
+    NSString *str = [self fm_notRounding:self afterPoint:2 fillnum:YES];
+    return str;
+}
+-(NSString *)fm_pointNum4 {
+    NSString *str = [self fm_notRounding:self afterPoint:4 fillnum:YES];
+    return str;
+}
+
+-(NSString *)fm_pointNum6 {
+    NSString *str = [self fm_notRounding:self afterPoint:6 fillnum:YES];
+    return str;
+}
+-(NSString *)fm_pointNum8 {
+    NSString *str = [self fm_notRounding:self afterPoint:8 fillnum:YES];
+    return str;
+}
+
+-(NSString *)fm_pointNum:(int)pointNum fillnum:(BOOL)fillnum {
+    NSString *str = [self fm_notRounding:self afterPoint:pointNum fillnum:fillnum];
+    return str;
+}
+
+
+-(NSString *)fm_notRounding:(id)price afterPoint:(int)position fillnum:(BOOL)fillnum{
+    
+    NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:position raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    NSDecimalNumber *ouncesDecimal;
+    NSDecimalNumber *roundedOunces;
+    
+    if ([price isKindOfClass:[NSString class]]) {
+        ouncesDecimal = [[NSDecimalNumber alloc] initWithString:price];
+    }else{
+        ouncesDecimal = [[NSDecimalNumber alloc] initWithString:[price stringValue]];
+    }
+    roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
+    if (fillnum) {
+        switch (position) {
+            case 1:
+                return [NSString stringWithFormat:@"%.1f",roundedOunces.doubleValue];
+                
+                break;
+            case 2:
+                return [NSString stringWithFormat:@"%.2f",roundedOunces.doubleValue];
+                
+                break;
+            case 3:
+                return [NSString stringWithFormat:@"%.3f",roundedOunces.doubleValue];
+                
+                break;
+            case 4:
+                return [NSString stringWithFormat:@"%.4f",roundedOunces.doubleValue];
+                
+                break;
+            case 5:
+                return [NSString stringWithFormat:@"%.5f",roundedOunces.doubleValue];
+                
+                break;
+            case 6:
+                return [NSString stringWithFormat:@"%.6f",roundedOunces.doubleValue];
+                
+                break;
+            case 7:
+                return [NSString stringWithFormat:@"%.7f",roundedOunces.doubleValue];
+                
+                break;
+            case 8:
+                return [NSString stringWithFormat:@"%.8f",roundedOunces.doubleValue];
+                break;
+            case 9:
+                return [NSString stringWithFormat:@"%.9f",roundedOunces.doubleValue];
+                break;
+            case 10:
+                return [NSString stringWithFormat:@"%.10f",roundedOunces.doubleValue];
+                break;
+            default:
+                return [NSString stringWithFormat:@"%@",roundedOunces];
+                break;
+        }
+    }else{
+        return [NSString stringWithFormat:@"%@",roundedOunces];
+    }
+   
+}
+
 @end
