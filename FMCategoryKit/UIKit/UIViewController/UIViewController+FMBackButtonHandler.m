@@ -23,13 +23,25 @@
 //  THE SOFTWARE.
 //
 
-#import "UIViewController+BackButtonHandler.h"
+#import "UIViewController+FMBackButtonHandler.h"
 
-@implementation UIViewController (BackButtonHandler)
+@implementation UIViewController (FMBackButtonHandler)
+/// pop 到某个控制器
+-(void)fm_backToController:(NSString *)controllerName animated:(BOOL)animaed{
+    if (self.navigationController) {
+        NSArray *controllers = self.navigationController.viewControllers;
+        NSArray *result = [controllers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return [evaluatedObject isKindOfClass:NSClassFromString(controllerName)];
+        }]];
+        if (result.count > 0) {
+            [self.navigationController popToViewController:result[0] animated:YES];
+        }
+    }
+}
 
 @end
 
-@implementation UINavigationController (ShouldPopOnBackButton)
+@implementation UINavigationController (FMShouldPopOnBackButton)
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     
@@ -39,8 +51,8 @@
     
     BOOL shouldPop = YES;
     UIViewController* vc = [self topViewController];
-    if([vc respondsToSelector:@selector(navigationShouldPopOnBackButton)]) {
-        shouldPop = [vc navigationShouldPopOnBackButton];
+    if([vc respondsToSelector:@selector(fm_navigationShouldPopOnBackButton)]) {
+        shouldPop = [vc fm_navigationShouldPopOnBackButton];
     }
     
     if(shouldPop) {
@@ -57,8 +69,8 @@
             }
         }
     }
-    
     return NO;
 }
+
 
 @end

@@ -32,8 +32,10 @@ typedef NS_ENUM(NSInteger, NativigationButtonType) {
 @interface UIViewController (FMAdd)
 #pragma mark - 获取当前屏幕显示的VC
 + (UIViewController *)fm_getCurrentViewController;
-
+/// VC通用NSInteger属性
 @property (nonatomic, assign) NSInteger ktype;
+/// VC通用字符串属性
+@property (nonatomic, strong) NSString *kname;
 
 #pragma mark - NavigationBar
 
@@ -157,4 +159,6 @@ typedef NS_ENUM(NSInteger, NativigationButtonType) {
 
 /** 设置状态栏（通知栏）颜色 */
 - (void)fm_setStatusBarBackgroundColor:(UIColor *)color;
+/// nav导航 pop返回到某一个控制器
+-(void)fm_backToController:(NSString *)controllerName animated:(BOOL)animaed;
 @end

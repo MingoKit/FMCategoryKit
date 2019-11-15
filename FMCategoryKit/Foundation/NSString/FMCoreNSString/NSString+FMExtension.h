@@ -51,6 +51,9 @@
 /// 把dictionary转成string
 + (NSString *)fm_dictionaryToJsonString:(NSDictionary *)dic;
 
+/// 把NSMutableArray转成string
++ (NSString *)fm_mutableArrayToJsonString:(NSMutableArray *)arrMut;
+
 /// 格式化银行卡号 4个数就有1个空格
 + (NSString *)fm_changeBankCardNumber:(NSString *)bankCardNumber;
 

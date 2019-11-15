@@ -86,6 +86,7 @@
 
 /** 判断一个字符串是纯数字 */
 - (BOOL)fm_validateAllNumber;
+
 /** 判断一个字符串是纯数字1到9或者. */
 - (BOOL)fm_validateAllNumberAndDot;
 //密码

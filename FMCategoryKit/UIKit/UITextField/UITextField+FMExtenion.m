@@ -245,10 +245,21 @@ static char canOnlyInputNumberKey;
     return self;
 }
 
-- (void)fm_setPlaceholderLabelTextColor:(UIColor *)color {
+- (void)fm_setPlaceholderColor:(UIColor *)color  {
+    [self fm_setPlaceholderColor:color font:0];
+}
+
+- (void)fm_setPlaceholderColor:(UIColor *)color font:(NSInteger )font{
     if (color) {
-        [self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
+         self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder attributes:@{NSForegroundColorAttributeName:color}]; ///新的实现
+        
+        
     }
+    
+    if (font) {
+         self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]}]; ///新的实现
+    }
+  
 }
 
 /**

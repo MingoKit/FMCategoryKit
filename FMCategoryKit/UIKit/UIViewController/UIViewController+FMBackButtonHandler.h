@@ -24,13 +24,14 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol BackButtonHandlerProtocol <NSObject>
+@protocol FMBackButtonHandlerProtocol <NSObject>
 @optional
 // Override this method in UIViewController derived class to handle 'Back' button click
-- (BOOL)navigationShouldPopOnBackButton;
+- (BOOL)fm_navigationShouldPopOnBackButton;
 @end
 
-@interface UIViewController (BackButtonHandler) <BackButtonHandlerProtocol>
-
+@interface UIViewController (FMBackButtonHandler) <FMBackButtonHandlerProtocol>
+/// pop 到某个控制器
+-(void)fm_backToController:(NSString *)controllerName animated:(BOOL)animaed;
 @end
 

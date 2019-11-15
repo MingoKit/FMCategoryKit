@@ -14,7 +14,6 @@
 #import <FMCategoryKit/UIWebView+MetaParser.h>
 #import <FMCategoryKit/UIWebView+Style.h>
 #import <FMCategoryKit/UIWebVIew+SwipeGesture.h>
-#import <FMCategoryKit/UIWebVIew+Add.h>
 
 
 #else
@@ -26,6 +25,5 @@
 #import "UIWebView+MetaParser.h"
 #import "UIWebView+Style.h"
 #import "UIWebVIew+SwipeGesture.h"
-#import "UIWebVIew+Add.h"
 
 #endif

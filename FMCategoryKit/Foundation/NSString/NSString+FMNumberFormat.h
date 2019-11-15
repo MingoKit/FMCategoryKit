@@ -15,7 +15,7 @@
  @return 修正精度后的数据
  */
 + (NSString *)fm_reviseString:(NSString *)str;
-
+- (NSString *)fm_reviseString;
 /**
  textField 输入数字时候要求多长，保留多少位小数。超过输入无反应。
 
@@ -30,5 +30,5 @@
 -(NSString *)fm_pointNum6;
 -(NSString *)fm_pointNum8;
 /// 保留几位小数。不足的是否补全位0
--(NSString *)fm_pointNum:(int)pointNum fillnum:(BOOL)fillnum;
+-(NSString *)fm_pointNum:(NSInteger)pointNum fillnum:(BOOL)fillnum;
 @end

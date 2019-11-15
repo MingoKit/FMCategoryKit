@@ -49,19 +49,19 @@
 }
 
 #pragma mark - mainFunction
-- (void)yb_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings tapClicked:(void (^) (NSString *string , NSRange range , NSInteger index))tapClick
+- (void)fm_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings tapClicked:(void (^) (NSString *string , NSRange range , NSInteger index))tapClick
 {
-    [self yb_getRangesWithStrings:strings];
+    [self fm_getRangesWithStrings:strings];
     
     if (self.tapBlock != tapClick) {
         self.tapBlock = tapClick;
     }
 }
 
-- (void)yb_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings
+- (void)fm_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings
                                    delegate:(id <YBAttributeTapActionDelegate> )delegate
 {
-    [self yb_getRangesWithStrings:strings];
+    [self fm_getRangesWithStrings:strings];
     
     if (self.delegate != delegate) {
         self.delegate = delegate;
@@ -77,28 +77,28 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [self yb_getTapFrameWithTouchPoint:point result:^(NSString *string, NSRange range, NSInteger index) {
+    [self fm_getTapFrameWithTouchPoint:point result:^(NSString *string, NSRange range, NSInteger index) {
         
         if (weakSelf.tapBlock) {
             weakSelf.tapBlock (string , range , index);
         }
         
-        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(yb_attributeTapReturnString:range:index:)]) {
-            [weakSelf.delegate yb_attributeTapReturnString:string range:range index:index];
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(fm_attributeTapReturnString:range:index:)]) {
+            [weakSelf.delegate fm_attributeTapReturnString:string range:range index:index];
         }
         
     }];
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if ([self yb_getTapFrameWithTouchPoint:point result:nil]) {
+    if ([self fm_getTapFrameWithTouchPoint:point result:nil]) {
         return self;
     }
     return nil;
 }
 
 #pragma mark - getTapFrame
-- (BOOL)yb_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (NSString *string , NSRange range , NSInteger index))resultBlock
+- (BOOL)fm_getTapFrameWithTouchPoint:(CGPoint)point result:(void (^) (NSString *string , NSRange range , NSInteger index))resultBlock
 {
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.attributedText);
     
@@ -120,7 +120,7 @@
     
     CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), origins);
     
-    CGAffineTransform transform = [self yb_transformForCoreText];
+    CGAffineTransform transform = [self fm_transformForCoreText];
     
     CGFloat verticalOffset = 0;
     
@@ -129,7 +129,7 @@
         
         CTLineRef line = CFArrayGetValueAtIndex(lines, i);
         
-        CGRect flippedRect = [self yb_getLineBounds:line point:linePoint];
+        CGRect flippedRect = [self fm_getLineBounds:line point:linePoint];
         
         CGRect rect = CGRectApplyAffineTransform(flippedRect, transform);
         
@@ -170,12 +170,12 @@
     return NO;
 }
 
-- (CGAffineTransform)yb_transformForCoreText
+- (CGAffineTransform)fm_transformForCoreText
 {
     return CGAffineTransformScale(CGAffineTransformMakeTranslation(0, self.bounds.size.height), 1.f, -1.f);
 }
 
-- (CGRect)yb_getLineBounds:(CTLineRef)line point:(CGPoint)point
+- (CGRect)fm_getLineBounds:(CTLineRef)line point:(CGPoint)point
 {
     CGFloat ascent = 0.0f;
     CGFloat descent = 0.0f;
@@ -187,7 +187,7 @@
 }
 
 #pragma mark - getRange
-- (void)yb_getRangesWithStrings:(NSArray <NSString *>  *)strings
+- (void)fm_getRangesWithStrings:(NSArray <NSString *>  *)strings
 {
     __block  NSString *totalStr = self.attributedText.string;
     
@@ -205,12 +205,12 @@
             model.str = obj;
             [weakSelf.attributeStrings addObject:model];
             
-            totalStr = [totalStr stringByReplacingCharactersInRange:range withString:[weakSelf yb_getStringWithRange:range]];
+            totalStr = [totalStr stringByReplacingCharactersInRange:range withString:[weakSelf fm_getStringWithRange:range]];
         }
     }];
 }
 
-- (NSString *)yb_getStringWithRange:(NSRange)range
+- (NSString *)fm_getStringWithRange:(NSRange)range
 {
     NSMutableString *string = [NSMutableString string];
     for (int i = 0; i < range.length ; i++) {

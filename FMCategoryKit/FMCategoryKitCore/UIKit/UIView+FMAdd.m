@@ -269,4 +269,65 @@ YYSYNTH_DUMMY_CLASS(UIView_FMAdd)
     self.frame = frame;
 }
 
+
+-(void)setClipRadius:(CGFloat)clipRadius {
+      if (clipRadius) {
+            [self.layer setCornerRadius:clipRadius];
+            [self.layer setMasksToBounds:YES];
+      }
+}
+
+-(void)setRadius:(CGFloat)radius {
+    if (radius) {
+        [self.layer setCornerRadius:radius];
+//        [self.layer setMasksToBounds:YES];
+    }
+}
+
+-(void)setBColor:(UIColor *)bColor {
+    if (bColor) {
+        self.layer.borderColor = bColor.CGColor;
+    }
+}
+
+-(void)setBWidth:(CGFloat)bWidth {
+    if (bWidth) {
+        self.layer.borderWidth = bWidth;
+    }
+}
+
+/// NOTE：修改xib没有效果 清除Xcode缓存
+/* iOS UIView圆角和阴影不能共存问题处理
+ self.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+ self.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移2，y向下偏移6，默认(0, -3),这个跟shadowRadius配合使用
+ self.layer.shadowOpacity = shadowOpacity;//阴影透明度，默认0
+ self.layer.shadowRadius = 3;//阴影半径，默认3
+ */
+
+
+
+-(void)setShadowColor:(UIColor *)shadowColor {
+    if (shadowColor) {
+        self.layer.shadowColor = shadowColor.CGColor;//shadowColor阴影颜色
+//        self.layer.shadowOffset = CGSizeMake(0.0,3.0);//shadowOffset阴影偏移,x向右偏移2，y向下偏移6，默认(0, -3),这个跟shadowRadius配合使用
+        self.layer.shadowOpacity = 0.5 ;//阴影透明度，默认0
+    }
+}
+
+-(void)setShadowRadius:(CGFloat)shadowRadius {
+    self.layer.shadowRadius = shadowRadius;//阴影半径，默认3
+}
+-(void)setShadowOpacity:(CGFloat)shadowOpacity {
+    if (shadowOpacity) {
+        self.layer.shadowOpacity = shadowOpacity ;//阴影透明度，默认0
+    }
+}
+
+-(void)setShadowOffset:(CGSize)shadowOffset {
+    if (shadowOffset.height || shadowOffset.width) {
+        self.layer.shadowOffset = shadowOffset;
+
+    }
+}
+
 @end

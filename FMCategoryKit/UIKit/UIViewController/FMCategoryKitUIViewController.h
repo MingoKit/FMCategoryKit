@@ -7,7 +7,7 @@
 
 #if __has_include(<FMCategoryKit/FMCategoryKitUIViewController.h>)
 
-#import <FMCategoryKit/UIViewController+BackButtonHandler.h>
+#import <FMCategoryKit/UIViewController+FMBackButtonHandler.h>
 #import <FMCategoryKit/UIViewController+BackButtonItemTitle.h>
 #import <FMCategoryKit/UIViewController+BackButtonTouched.h>
 #import <FMCategoryKit/UIViewController+BlockSegue.h>
@@ -20,7 +20,7 @@
 
 #else
 
-#import "UIViewController+BackButtonHandler.h"
+#import "UIViewController+FMBackButtonHandler.h"
 #import "UIViewController+BackButtonItemTitle.h"
 #import "UIViewController+BackButtonTouched.h"
 #import "UIViewController+BlockSegue.h"

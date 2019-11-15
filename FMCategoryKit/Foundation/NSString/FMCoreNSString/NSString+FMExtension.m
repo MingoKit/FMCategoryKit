@@ -144,7 +144,7 @@
     if (originalStr.length != 0) {
         NSMutableString *outputStr = [NSMutableString stringWithString:originalStr];
         [outputStr replaceOccurrencesOfString:objStr withString:toStr options:NSLiteralSearch range:NSMakeRange(0, [outputStr length])];
-        return [outputStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        return [outputStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     } else {
         return nil;
     }
@@ -166,6 +166,15 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     NSString *string =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     return string;
+}
+
+#pragma mark - 把NSMutableArray转成string
++ (NSString *)fm_mutableArrayToJsonString:(NSMutableArray *)arrMut{
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrMut options:NSJSONWritingPrettyPrinted error:&error];//此处dataArr参数的key为"data"的数组
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return jsonString;
 }
 
 #pragma mark - 格式化银行卡号 4个数就有1个空格

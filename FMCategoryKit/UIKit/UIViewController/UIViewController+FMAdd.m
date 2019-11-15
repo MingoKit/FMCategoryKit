@@ -8,7 +8,9 @@
 #import "UIViewController+FMAdd.h"
 #define kNavigationBarDefaultTitleColor [UIColor whiteColor]
 #define kNavigationBarDefaultTitleFont  [UIFont systemFontOfSize:16.0f]
-static NSString *nameKey = @"nameKey"; //那么的key
+static NSString *ktypeKey = @"ktypeKey"; //那么的key
+static NSString *knameKey = @"knameKey"; //那么的key
+
 #import <objc/runtime.h>
 
 typedef void (^ActionBlock)(void);
@@ -42,14 +44,29 @@ static char overviewKey;
  setter方法
  */
 - (void)setKtype:(NSInteger)ktype {
-    objc_setAssociatedObject(self, &nameKey, @(ktype), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &ktypeKey, @(ktype), OBJC_ASSOCIATION_ASSIGN);
 }
 
 /**
  getter方法
  */
 - (NSInteger)ktype {
-    return [objc_getAssociatedObject(self, &nameKey) integerValue];
+    return [objc_getAssociatedObject(self, &ktypeKey) integerValue];
+}
+
+
+/**
+ setter方法
+ */
+- (void)setKname:(NSString *)kname {
+    objc_setAssociatedObject(self, &knameKey,kname, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+/**
+ getter方法
+ */
+- (NSString *)kname {
+    return objc_getAssociatedObject(self, &knameKey);
 }
 
 #pragma mark - 获取当前屏幕显示的VC
@@ -360,10 +377,46 @@ static char overviewKey;
 
 #pragma mark - 设置状态栏（通知栏）颜色
 - (void)fm_setStatusBarBackgroundColor:(UIColor *)color {
-    
-    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+
+    if (@available(iOS 13.0, *)) {
+        NSInteger ios13tag = 1300;
+        UIView *statusBar  = [[UIApplication sharedApplication].keyWindow viewWithTag:ios13tag];
+        if (!statusBar) {
+            statusBar = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.windowScene.statusBarManager.statusBarFrame] ;
+            statusBar.tag = ios13tag;
+            [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
+        }
         statusBar.backgroundColor = color;
+
+    } else {
+        // Fallback on earlier versions
+        UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+        if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+            statusBar.backgroundColor = color;
+        }
+    }
+    if ([color isEqual:UIColor.whiteColor]) {
+        if (@available(iOS 13.0, *)) {
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDarkContent;
+        } else {
+            // Fallback on earlier versions
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+        }
+    }else{
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    }
+
+}
+
+-(void)fm_backToController:(NSString *)controllerName animated:(BOOL)animaed{
+    if (self.navigationController) {
+        NSArray *controllers = self.navigationController.viewControllers;
+        NSArray *result = [controllers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return [evaluatedObject isKindOfClass:NSClassFromString(controllerName)];
+        }]];
+        if (result.count > 0) {
+            [self.navigationController popToViewController:result[0] animated:YES];
+        }
     }
 }
 

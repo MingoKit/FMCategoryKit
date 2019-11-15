@@ -656,11 +656,12 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
         
         //倒计时结束，关闭
         if (timeOut == 0) {
-            dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (normalColor)  self.backgroundColor = normalColor;
                 [self setTitle:normalTitle forState:UIControlStateNormal];
                 self.userInteractionEnabled =YES;
+                dispatch_source_cancel(_timer);
+
                 if (finishBlock) {
                     finishBlock();
                 }

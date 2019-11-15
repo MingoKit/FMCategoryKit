@@ -117,10 +117,6 @@ NSString *YYUIViewContentModeToCAGravity(UIViewContentMode contentMode);
  */
 CGRect YYCGRectFitWithContentMode(CGRect rect, CGSize size, UIViewContentMode mode);
 
-/// Returns the center for the rectangle.
-static inline CGPoint fm_CGRectGetCenter(CGRect rect) {
-    return CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-}
 
 /// Returns the area of the rectangle.
 static inline CGFloat CGRectGetArea(CGRect rect) {

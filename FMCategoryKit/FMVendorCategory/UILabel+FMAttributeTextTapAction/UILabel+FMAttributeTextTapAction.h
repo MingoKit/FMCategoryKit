@@ -16,7 +16,7 @@
  *  @param range   点击的字符串range
  *  @param index 点击的字符在数组中的index
  */
-- (void)yb_attributeTapReturnString:(NSString *)string
+- (void)fm_attributeTapReturnString:(NSString *)string
                               range:(NSRange)range
                               index:(NSInteger)index;
 @end
@@ -41,7 +41,7 @@
  *  @param strings  需要添加的字符串数组
  *  @param tapClick 点击事件回调
  */
-- (void)yb_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings
+- (void)fm_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings
                                  tapClicked:(void (^) (NSString *string , NSRange range , NSInteger index))tapClick;
 
 /**
@@ -50,7 +50,7 @@
  *  @param strings  需要添加的字符串数组
  *  @param delegate delegate
  */
-- (void)yb_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings
+- (void)fm_addAttributeTapActionWithStrings:(NSArray <NSString *> *)strings
                                    delegate:(id <YBAttributeTapActionDelegate> )delegate;
 
 @end
