@@ -161,4 +161,8 @@ typedef NS_ENUM(NSInteger, NativigationButtonType) {
 - (void)fm_setStatusBarBackgroundColor:(UIColor *)color;
 /// nav导航 pop返回到某一个控制器
 -(void)fm_backToController:(NSString *)controllerName animated:(BOOL)animaed;
+/// 移除某个控制器
+-(void)fm_removeController:(NSString *)controllerName;
+/// 移除多个控制器
+-(void)fm_removeControllers:(NSMutableArray <NSString *>*)controllers;
 @end

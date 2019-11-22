@@ -420,4 +420,26 @@ static char overviewKey;
     }
 }
 
+/// 移除某个控制器
+-(void)fm_removeController:(NSString *)controllerName {
+    [self fm_removeControllers:@[controllerName].mutableCopy];
+}
+
+/// 移除多个控制器
+-(void)fm_removeControllers:(NSMutableArray <NSString *>*)controllers {
+    for (NSString *vcstr in controllers) {
+        if (self.navigationController) {
+            NSMutableArray *vcArr = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+            for (UIViewController *vc in vcArr) {
+                if ([vc isKindOfClass:[NSClassFromString(vcstr) class]]) {
+                    [vcArr removeObject:vc];
+                    break;
+                }
+            }
+            self.navigationController.viewControllers = vcArr;
+        }
+    }
+}
+
+
 @end
