@@ -430,12 +430,16 @@ static char overviewKey;
     for (NSString *vcstr in controllers) {
         if (self.navigationController) {
             NSMutableArray *vcArr = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+            NSMutableArray *vcin = [NSMutableArray array];
             for (UIViewController *vc in vcArr) {
                 if ([vc isKindOfClass:[NSClassFromString(vcstr) class]]) {
-                    [vcArr removeObject:vc];
+                    [vcin addObject:vc];
                 }
             }
-            self.navigationController.viewControllers = vcArr.copy;
+            for (UIViewController *x in vcin) {
+                [vcArr removeObject:x];
+            }
+            self.navigationController.viewControllers = vcArr;
         }
     }
 }
