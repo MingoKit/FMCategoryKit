@@ -433,10 +433,9 @@ static char overviewKey;
             for (UIViewController *vc in vcArr) {
                 if ([vc isKindOfClass:[NSClassFromString(vcstr) class]]) {
                     [vcArr removeObject:vc];
-                    break;
                 }
             }
-            self.navigationController.viewControllers = vcArr;
+            self.navigationController.viewControllers = vcArr.copy;
         }
     }
 }
