@@ -405,7 +405,6 @@ static char overviewKey;
     }else{
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }
-
 }
 
 -(void)fm_backToController:(NSString *)controllerName animated:(BOOL)animaed{
@@ -427,22 +426,21 @@ static char overviewKey;
 
 /// 移除多个控制器
 -(void)fm_removeControllers:(NSMutableArray <NSString *>*)controllers {
-    for (NSString *vcstr in controllers) {
-        if (self.navigationController) {
-            NSMutableArray *vcArr = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-            NSMutableArray *vcin = [NSMutableArray array];
+    if (self.navigationController) {
+        NSMutableArray *vcArr = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+        NSMutableArray *vcin = [NSMutableArray array];
+        for (NSString *vcstr in controllers) {
             for (UIViewController *vc in vcArr) {
                 if ([vc isKindOfClass:[NSClassFromString(vcstr) class]]) {
                     [vcin addObject:vc];
                 }
             }
-            for (UIViewController *x in vcin) {
-                [vcArr removeObject:x];
-            }
-            self.navigationController.viewControllers = vcArr;
         }
+        for (UIViewController *x in vcin) {
+            [vcArr removeObject:x];
+        }
+        self.navigationController.viewControllers = vcArr;
     }
 }
-
 
 @end
