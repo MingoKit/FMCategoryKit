@@ -48,6 +48,9 @@
         case TimeFormatyyyy_MM_dd_HH_mm_ss:
             objcStr = [self dateToString:newdate withDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             break;
+        case TimeFormatyyyy_MM_dd_HH_mm:
+            objcStr = [self dateToString:newdate withDateFormat:@"yyyy-MM-dd HH:mm"];
+            break;
         case TimeFormatyyyy_MM_dd:
             objcStr = [self dateToString:newdate withDateFormat:@"yyyy-MM-dd"];
             break;
@@ -439,13 +442,13 @@
 //    NSString *timeStampString  = @"1495453213000";
     
     if ([timeStamp containsString:@"-"] && [timeStamp containsString:@":"] && [timeStamp containsString:@" "]) {
-        NSString *time = [timeStamp fm_currentDateFormatStringToOtherDateFormatString:timeStamp timeFormat:TimeFormatMM_dd_HH_mm];
+        NSString *time = [timeStamp fm_currentDateFormatStringToOtherDateFormatString:timeStamp timeFormat:TimeFormatyyyy_MM_dd_HH_mm];
         return time;
     }
     if ([timeStamp containsString:@"T"] && [timeStamp containsString:@".000+0000"]) {
         NSString *strt = [timeStamp stringByReplacingOccurrencesOfString:@"T" withString:@" "];
         strt = [strt stringByReplacingOccurrencesOfString:@".000+0000" withString:@""];
-        NSString *time = [timeStamp fm_currentDateFormatStringToOtherDateFormatString:strt timeFormat:TimeFormatMM_dd_HH_mm];
+        NSString *time = [timeStamp fm_currentDateFormatStringToOtherDateFormatString:strt timeFormat:TimeFormatyyyy_MM_dd_HH_mm];
         return time;
     }
     // iOS 生成的时间戳是10位
