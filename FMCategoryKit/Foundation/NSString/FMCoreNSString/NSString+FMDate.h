@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, TimeFormat) {
     TimeFormatyyyy_MM_dd_HH_mm,         // yyyy-MM-dd HH:mm
     TimeFormatyyyy_MM_dd,               // yyyy-MM-dd
     TimeFormatMM_dd_HH_mm,              // MM-dd HH:mm
+    TimeFormatMM_dd_HH_mm_ss,              // MM-dd HH:mm:ss
     TimeFormatMM_dd,                    // MM-dd
     TimeFormatMMYear_MMMonth_ddDay,     // yyyy年MM月dd日
     TimeFormatMMDot_MMDot_ddDot,        // yyyy.MM.dd

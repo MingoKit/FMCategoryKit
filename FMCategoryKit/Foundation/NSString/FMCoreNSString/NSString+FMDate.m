@@ -57,6 +57,9 @@
         case TimeFormatMM_dd_HH_mm:
             objcStr = [self dateToString:newdate withDateFormat:@"MM-dd HH:mm"];
             break;
+        case TimeFormatMM_dd_HH_mm_ss:
+            objcStr = [self dateToString:newdate withDateFormat:@"MM-dd HH:mm:ss"];
+            break;
         case TimeFormatMM_dd:
             objcStr = [self dateToString:newdate withDateFormat:@"MM-dd"];
             break;
