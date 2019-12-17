@@ -514,11 +514,13 @@ YYSYNTH_DUMMY_CLASS(NSDate_FMAdd)
                                      options:0];
 }
 
-- (NSDate *)offsetDays:(int)numDays {
+
+/// 返回numDays天后的日期
+- (NSDate *)offsetDays:(NSInteger)numDays {
     return [NSDate offsetDays:numDays fromDate:self];
 }
 
-+ (NSDate *)offsetDays:(int)numDays fromDate:(NSDate *)fromDate {
++ (NSDate *)offsetDays:(NSInteger)numDays fromDate:(NSDate *)fromDate {
     if (fromDate == nil) {
         return nil;
     }

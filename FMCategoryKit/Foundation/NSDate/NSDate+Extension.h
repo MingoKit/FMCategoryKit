@@ -95,12 +95,6 @@
 + (NSDate *)offsetMonths:(int)numMonths fromDate:(NSDate *)fromDate;
 
 /**
- * 返回numDays天后的日期
- */
-- (NSDate *)offsetDays:(int)numDays;
-+ (NSDate *)offsetDays:(int)numDays fromDate:(NSDate *)fromDate;
-
-/**
  * 返回numHours小时后的日期
  */
 - (NSDate *)offsetHours:(int)hours;

@@ -108,7 +108,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** month月后的日期(若month为负数,则为|month|月前的日期) */
 + (NSDate *)dateAfterDate:(NSDate *)date month:(NSInteger)month;
-
+/// 返回numDays天后的日期
+- (NSDate *)offsetDays:(NSInteger)numDays;
++ (NSDate *)offsetDays:(NSInteger)numDays fromDate:(NSDate *)fromDate;
 /** numYears年后的日期 */
 - (NSDate *)offsetYears:(int)numYears;
 
