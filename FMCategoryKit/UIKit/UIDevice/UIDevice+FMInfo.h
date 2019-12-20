@@ -1,5 +1,5 @@
 //
-//  UIDevice+JYInfo.h
+//  UIDevice+FMInfo.h
 //  JYExtension
 //
 //  Created by Dely on 2017/8/9.
@@ -21,97 +21,92 @@ typedef NS_ENUM(NSInteger, NetworkType) {
     NetworkTypeLTE
 };
 
-@interface UIDevice (JYInfo)
+@interface UIDevice (FMInfo)
 
-// 屏幕宽度
-+ (CGFloat)getDeviceScreenWidth;
-// 屏幕高度
-+ (CGFloat)getDeviceScreenHeight;
 
 // 设备的名称
-+ (NSString *)getDeviceName;
++ (NSString *)fm_getDeviceName;
 
-// 设备类型
-+ (NSString *)getDeviceTypeName;
-
+// 设备类型 iPhone 7 Plus 等等
++ (NSString *)fm_getDeviceTypeName;
 
 // 获取BundleID
-+ (NSString*)getBundleID;
++ (NSString *)fm_getBundleID;
 
 // app版本号
-+ (NSString *)getAPPVerion;
++ (NSString *)fm_getAPPVerion;
 
 // app_build版本号
-+ (NSString *)getAPPBuildVersion;
++ (NSString *)fm_getAPPBuildVersion;
 
 // app名字
-+ (NSString *)getAPPName;
++ (NSString *)fm_getAPPName;
 
 // 设备UUID
-+ (NSString *)getiPhoneUUID;
++ (NSString *)fm_getiPhoneUUID;
 
 // 设备系统版本
-+ (NSString *)getSystemVersion;
++ (NSString *)fm_getSystemVersion;
 
 // 获取电池剩余电量
-+ (CGFloat)getBatteryLevel;
++ (CGFloat)fm_getBatteryLevel;
 
 // 获取手机IP
-+ (NSString *)getDeviceIPAdress;
++ (NSString *)fm_getDeviceIPAdress;
 
 // 获取总内存大小(单位：字节 B)
-+ (long long)getTotalMemorySize;
++ (long long)fm_getTotalMemorySize;
 
 // 获取当前可用内存(单位：字节 B)
-+ (long long)getAvailableMemorySize;
++ (long long)fm_getAvailableMemorySize;
 
 // 获取总磁盘容量(单位：字节 B)
-+ (long long)getTotalDiskSize;
++ (long long)fm_getTotalDiskSize;
 
 // 获取可用磁盘容量(单位：字节 B)
-+ (long long)getAvailableDiskSize;
++ (long long)fm_getAvailableDiskSize;
 
 // 获取精准电池电量
-+ (CGFloat)getCurrentBatteryLevel;
++ (CGFloat)fm_getCurrentBatteryLevel;
 
 // 获取当前语言
-+ (NSString *)getDeviceLanguage;
++ (NSString *)fm_getDeviceLanguage;
 
 // 获取运营商名称
-+ (NSString *)getCarrierName;
++ (NSString *)fm_getCarrierName;
 
 // 获取网络类型(确保statusbar没有隐藏，否则获取不到）
-+ (NetworkType)getNetworkType;
++ (NetworkType)fm_getNetworkType;
 
 // 获取网络类型名称(确保statusbar没有隐藏，否则获取不到）
-+ (NSString *)getNetworkTypeName;
++ (NSString *)fm_getNetworkTypeName;
 
 /** mac地址 */
-+ (NSString *)macAddress;
++ (NSString *)fm_macAddress;
 
 /** ram的size */
-+ (NSUInteger)ramSize;
++ (NSUInteger)fm_ramSize;
 
 /** cpu个数 */
-+ (NSUInteger)cpuNumber;
++ (NSUInteger)fm_cpuNumber;
 
 /** 系统的版本号 */
-+ (NSString *)systemVersion;
++ (NSString *)fm_systemVersion;
 
 /** 是否有摄像头 */
-+ (BOOL)hasCamera;
++ (BOOL)fm_hasCamera;
 
 /** 获取手机内存总量, 返回的是字节数 */
-+ (NSUInteger)totalMemoryBytes;
++ (NSUInteger)fm_totalMemoryBytes;
 
 /** 获取手机可用内存, 返回的是字节数 */
-+ (NSUInteger)freeMemoryBytes;
++ (NSUInteger)fm_freeMemoryBytes;
 
 /** 获取手机硬盘总空间, 返回的是字节数 */
-+ (NSUInteger)totalDiskSpaceBytes;
++ (NSUInteger)fm_totalDiskSpaceBytes;
 
 /** 获取手机硬盘空闲空间, 返回的是字节数 */
-+ (NSUInteger)freeDiskSpaceBytes;
++ (NSUInteger)fm_freeDiskSpaceBytes;
 /// 判断刘海屏，返回YES表示是刘海屏
-+ (BOOL)isNotchScreen;
++ (BOOL)fm_isNotchScreen;
 @end

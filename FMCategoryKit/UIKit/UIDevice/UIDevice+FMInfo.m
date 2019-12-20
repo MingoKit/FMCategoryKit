@@ -1,12 +1,12 @@
 //
-//  UIDevice+JYInfo.m
+//  UIDevice+FMInfo.m
 //  JYExtension
 //
 //  Created by Dely on 2017/8/9.
 //  Copyright © 2017年 Dely. All rights reserved.
 //
 
-#import "UIDevice+JYInfo.h"
+#import "UIDevice+FMInfo.h"
 #import "sys/utsname.h"
 #import <ifaddrs.h>
 #import <arpa/inet.h>
@@ -28,37 +28,19 @@
 #import <mach/mach_host.h>
 #import <mach/processor_info.h>
 
-@implementation UIDevice (JYInfo)
+@implementation UIDevice (FMInfo)
 
-// 屏幕宽度
-+ (CGFloat)getDeviceScreenWidth {
-    return [UIScreen mainScreen].bounds.size.width;
-}
-// 屏幕高度
-+ (CGFloat)getDeviceScreenHeight {
-    return [UIScreen mainScreen].bounds.size.height;
-}
 
 // 设备的名称
-+ (NSString *)getDeviceName {
++ (NSString*)fm_getDeviceName {
     return [UIDevice currentDevice].name;
 }
 
 // 设备类型
-+ (NSString *)getDeviceTypeName{
++ (NSString *)fm_getDeviceTypeName{
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString *platform = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    if ([platform isEqualToString:@"iPhone1,1"])    return @"iPhone 1G";
-    if ([platform isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
-    if ([platform isEqualToString:@"iPhone2,1"])    return @"iPhone 3GS";
-    if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4 (GSM)";
-    if ([platform isEqualToString:@"iPhone3,3"])    return @"iPhone 4 (CDMA)";
-    if ([platform isEqualToString:@"iPhone4,1"])    return @"iPhone 4S";
-    if ([platform isEqualToString:@"iPhone5,1"])    return @"iPhone 5 (GSM)";
-    if ([platform isEqualToString:@"iPhone5,2"])    return @"iPhone 5 (CDMA)";
-    if ([platform isEqualToString:@"iPhone5,3"])    return @"iPhone 5c";
-    if ([platform isEqualToString:@"iPhone5,4"])    return @"iPhone 5c";
     if ([platform isEqualToString:@"iPhone6,1"])    return @"iPhone 5s";
     if ([platform isEqualToString:@"iPhone6,2"])    return @"iPhone 5s";
     if ([platform isEqualToString:@"iPhone7,1"])    return @"iPhone 6 Plus";
@@ -70,28 +52,19 @@
     if ([platform isEqualToString:@"iPhone9,2"])    return @"iPhone 7 Plus";
     if ([platform isEqualToString:@"iPhone9,3"])    return @"iPhone 7";
     if ([platform isEqualToString:@"iPhone9,4"])    return @"iPhone 7 Plus";
-    
-    if ([platform isEqualToString:@"iPod1,1"])      return @"iPod Touch 1G";
-    if ([platform isEqualToString:@"iPod2,1"])      return @"iPod Touch 2G";
-    if ([platform isEqualToString:@"iPod3,1"])      return @"iPod Touch 3G";
-    if ([platform isEqualToString:@"iPod4,1"])      return @"iPod Touch 4G";
-    if ([platform isEqualToString:@"iPod5,1"])      return @"iPod Touch 5G";
-    if ([platform isEqualToString:@"iPod7,1"])      return @"iPod Touch 6G";
-    
-    if ([platform isEqualToString:@"iPad1,1"])      return @"iPad";
-    if ([platform isEqualToString:@"iPad2,1"])      return @"iPad 2 (WiFi)";
-    if ([platform isEqualToString:@"iPad2,2"])      return @"iPad 2 (GSM)";
-    if ([platform isEqualToString:@"iPad2,3"])      return @"iPad 2 (CDMA)";
-    if ([platform isEqualToString:@"iPad2,4"])      return @"iPad 2 (WiFi)";
-    if ([platform isEqualToString:@"iPad2,5"])      return @"iPad Mini (WiFi)";
-    if ([platform isEqualToString:@"iPad2,6"])      return @"iPad Mini (GSM)";
-    if ([platform isEqualToString:@"iPad2,7"])      return @"iPad Mini (CDMA)";
-    if ([platform isEqualToString:@"iPad3,1"])      return @"iPad 3 (WiFi)";
-    if ([platform isEqualToString:@"iPad3,2"])      return @"iPad 3 (CDMA)";
-    if ([platform isEqualToString:@"iPad3,3"])      return @"iPad 3 (GSM)";
-    if ([platform isEqualToString:@"iPad3,4"])      return @"iPad 4 (WiFi)";
-    if ([platform isEqualToString:@"iPad3,5"])      return @"iPad 4 (GSM)";
-    if ([platform isEqualToString:@"iPad3,6"])      return @"iPad 4 (CDMA)";
+    if ([platform isEqualToString:@"iPhone10,1"])    return @"iPhone 8";
+    if ([platform isEqualToString:@"iPhone10,4"])    return @"iPhone 8";
+    if ([platform isEqualToString:@"iPhone10,2"])    return @"iPhone 8 Plus";
+    if ([platform isEqualToString:@"iPhone10,5"])    return @"iPhone 8 Plus";
+    if ([platform isEqualToString:@"iPhone10,3"])    return @"iPhone X";
+    if ([platform isEqualToString:@"iPhone10,6"])    return @"iPhone X";
+    if ([platform isEqualToString:@"iPhone11,8"])    return @"iPhone XR";
+    if ([platform isEqualToString:@"iPhone11,2"])    return @"iPhone XS";
+    if ([platform isEqualToString:@"iPhone11,6"])    return @"iPhone XS Max";
+    if ([platform isEqualToString:@"iPhone12,1"])    return @"iPhone 11";
+    if ([platform isEqualToString:@"iPhone12,3"])    return @"iPhone 11 Pro";
+    if ([platform isEqualToString:@"iPhone12,5"])    return @"iPhone 11 Pro Max";
+
     if ([platform isEqualToString:@"iPad4,1"])      return @"iPad Air (WiFi)";
     if ([platform isEqualToString:@"iPad4,2"])      return @"iPad Air (GSM)";
     if ([platform isEqualToString:@"iPad4,3"])      return @"iPad Air (CDMA)";
@@ -116,41 +89,41 @@
 }
 
 // 获取BundleID
-+ (NSString*)getBundleID{
++ (NSString*)fm_getBundleID{
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
 }
 
 // 获取app版本号
-+ (NSString *)getAPPVerion {
++ (NSString*)fm_getAPPVerion {
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 }
 
 // app_build版本号
-+ (NSString *)getAPPBuildVersion{
++ (NSString*)fm_getAPPBuildVersion{
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 }
 
 // app名字
-+ (NSString *)getAPPName{
++ (NSString*)fm_getAPPName{
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
 }
 
 // 设备UUID
-+ (NSString *)getiPhoneUUID{
++ (NSString*)fm_getiPhoneUUID{
     return [[UIDevice currentDevice] identifierForVendor].UUIDString;
 }
 // 设备操作系统版本
-+ (NSString *)getSystemVersion{
++ (NSString*)fm_getSystemVersion{
     return [[UIDevice currentDevice] systemVersion];
 }
 
 // 获取电池剩余电量
-+ (CGFloat)getBatteryLevel {
++ (CGFloat)fm_getBatteryLevel {
     return [UIDevice currentDevice].batteryLevel;
 }
 
 // 获取手机IP
-+ (NSString *)getDeviceIPAdress {
++ (NSString*)fm_getDeviceIPAdress {
     NSString *address;
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
@@ -174,12 +147,12 @@
 }
 
 // 获取总内存大小
-+ (long long)getTotalMemorySize {
++ (long long)fm_getTotalMemorySize {
     return [NSProcessInfo processInfo].physicalMemory;
 }
 
 // 获取当前可用内存
-+ (long long)getAvailableMemorySize {
++ (long long)fm_getAvailableMemorySize {
     vm_statistics_data_t vmStats;
     mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
     kern_return_t kernReturn = host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmStats, &infoCount);
@@ -192,7 +165,7 @@
 }
 
 // 获取总磁盘容量
-+ (long long)getTotalDiskSize{
++ (long long)fm_getTotalDiskSize{
     struct statfs buf;
     unsigned long long freeSpace = -1;
     if (statfs("/var", &buf) >= 0){
@@ -202,7 +175,7 @@
 }
 
 // 获取可用磁盘容量
-+ (long long)getAvailableDiskSize{
++ (long long)fm_getAvailableDiskSize{
     struct statfs buf;
     unsigned long long freeSpace = -1;
     if (statfs("/var", &buf) >= 0){
@@ -212,7 +185,7 @@
 }
 
 // 获取精准电池电量
-+ (CGFloat)getCurrentBatteryLevel {
++ (CGFloat)fm_getCurrentBatteryLevel {
     UIApplication *app = [UIApplication sharedApplication];
     if (app.applicationState == UIApplicationStateActive||app.applicationState==UIApplicationStateInactive) {
         Ivar ivar=  class_getInstanceVariable([app class],"_statusBar");
@@ -240,20 +213,20 @@
 }
 
 // 获取当前语言
-+ (NSString *)getDeviceLanguage {
++ (NSString*)fm_getDeviceLanguage {
     NSArray *languageArray = [NSLocale preferredLanguages];
     return [languageArray firstObject];
 }
 
 // 获取运营商名称
-+ (NSString *)getCarrierName {
++ (NSString*)fm_getCarrierName {
     CTTelephonyNetworkInfo *telephonyInfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [telephonyInfo subscriberCellularProvider];
     return  [carrier carrierName];
 }
 
 // 获取网络类型
-+ (NetworkType)getNetworkType {
++ (NetworkType)fm_getNetworkType {
     
     NSArray *subviews = [[[[UIApplication sharedApplication] valueForKey:@"statusBar"] valueForKey:@"foregroundView"]subviews];
     NSNumber *dataNetworkItemView = nil;
@@ -294,8 +267,8 @@
 }
 
 // 获取网络类型名称
-+ (NSString *)getNetworkTypeName{
-    NetworkType type = [UIDevice getNetworkType];
++ (NSString*)fm_getNetworkTypeName{
+    NetworkType type = [UIDevice fm_getNetworkType];
     if (type == NetworkType4G) {
         return @"4G";
     }else if (type == NetworkTypeWifi) {
@@ -310,7 +283,7 @@
     return @"无服务";
 }
 
-+ (NSString *)macAddress {
++ (NSString *)fm_macAddress {
     int                 mib[6];
     size_t              len;
     char                *buf;
@@ -354,11 +327,11 @@
     return outstring;
 }
 
-+ (NSString *)systemVersion
++ (NSString *)fm_systemVersion
 {
     return [[UIDevice currentDevice] systemVersion];
 }
-+ (BOOL)hasCamera
++ (BOOL)fm_hasCamera
 {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
 }
@@ -372,21 +345,21 @@
     return (NSUInteger)result;
 }
 
-+ (NSUInteger)ramSize {
++ (NSUInteger)fm_ramSize {
     return [self getSysInfo:HW_MEMSIZE];
 }
 
-+ (NSUInteger)cpuNumber {
++ (NSUInteger)fm_cpuNumber {
     return [self getSysInfo:HW_NCPU];
 }
 
 
-+ (NSUInteger)totalMemoryBytes
++ (NSUInteger)fm_totalMemoryBytes
 {
     return [self getSysInfo:HW_PHYSMEM];
 }
 
-+ (NSUInteger)freeMemoryBytes
++ (NSUInteger)fm_freeMemoryBytes
 {
     mach_port_t host_port = mach_host_self();
     mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
@@ -401,7 +374,7 @@
     return mem_free;
 }
 
-+ (NSUInteger)freeDiskSpaceBytes
++ (NSUInteger)fm_freeDiskSpaceBytes
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSDictionary *attributes = [fileManager attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
@@ -409,7 +382,7 @@
     return [number unsignedIntegerValue];
 }
 
-+ (NSUInteger)totalDiskSpaceBytes
++ (NSUInteger)fm_totalDiskSpaceBytes
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSDictionary *attributes = [fileManager attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
@@ -419,7 +392,7 @@
 
 
 /// 判断刘海屏，返回YES表示是刘海屏
-+ (BOOL)isNotchScreen  {
++ (BOOL)fm_isNotchScreen  {
     /*
     https://kangzubin.com/iphonex-detect/
     iPhone X 对应的 device mode 为 iPhone10,3 和 iPhone10,6，而今年最新发布 iPhone XS 对应 iPhone11,2，iPhone XS Max 对应 iPhone11,4 和 iPhone11,6，iPhone XR 对应 iPhone11,8，完整的 device mode 数据参考这里：
