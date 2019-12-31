@@ -267,6 +267,44 @@
     {}
 }
 
+- (NSMutableArray *)fm_componentsSeparatedByStringSemicolon {
+    if (!self.length) return @[].mutableCopy;
+    NSString *str = self.copy;
+    if ([[str substringFromIndex:str.length - 1] isEqualToString:@","]) {
+        str = [str substringToIndex:str.length - 1];
+    }
+    
+    NSMutableArray *arrend = NSMutableArray.array;
+    NSMutableArray *arrtem  = [str componentsSeparatedByString:@","].mutableCopy;
+    
+    if (arrtem.count) {
+        for (NSString *str in arrtem) {
+            NSString *showStr = str;
+            if ([str fm_isContainChinese] && [str containsString:@"http"]) {
+                showStr = [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            }
+            [arrend addObject:showStr];
+        }
+    }else{
+        if ([str fm_isContainChinese] && [str containsString:@"http"]) {
+            str = [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        }
+        [arrend addObject:str];
+    }
+    return arrend;
+}
 
+- (BOOL)fm_isContainChinese {
+    NSUInteger length = [self length];
+    for (NSUInteger i = 0; i < length; i++) {
+        NSRange range = NSMakeRange(i, 1);
+        NSString *subString = [self substringWithRange:range];
+        const char *cString = [subString UTF8String];
+        if (strlen(cString) == 3) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 @end

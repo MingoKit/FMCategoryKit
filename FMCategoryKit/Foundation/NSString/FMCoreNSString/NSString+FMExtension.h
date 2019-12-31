@@ -65,4 +65,7 @@
 
 /// 格式化金额为32,233.0这种格式
 +(NSString*)fm_formatMoneyString:(NSString*)str;
+
+/// 根据“,”分割字符串为数组
+- (NSMutableArray *)fm_componentsSeparatedByStringSemicolon;
 @end
