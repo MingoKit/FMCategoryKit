@@ -75,24 +75,7 @@ typedef void (^KVOBlock)(NSDictionary *change, void *context);
 /** 是否包含某个实例变量 */
 - (BOOL)hasIvarForKey:(NSString*)key;
 
-- (void)addObserver:(NSObject *)observer
-         forKeyPath:(NSString *)keyPath
-            options:(NSKeyValueObservingOptions)options
-            context:(void *)context
-          withBlock:(KVOBlock)block;
-
--(void)removeBlockObserver:(NSObject *)observer
-                forKeyPath:(NSString *)keyPath;
-
--(void)addObserverForKeyPath:(NSString *)keyPath
-                     options:(NSKeyValueObservingOptions)options
-                     context:(void *)context
-                   withBlock:(KVOBlock)block;
-
--(void)removeBlockObserverForKeyPath:(NSString *)keyPath;
-
 - (void)modelWithDictionary:(NSDictionary *)dict __attribute__((deprecated(" ")));
-
 
 
 #pragma mark - Sending messages with variable parameters
