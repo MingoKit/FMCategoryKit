@@ -9,7 +9,8 @@
 
 
 @implementation NSMutableArray (FMAdd)
-- (NSString *)fm_appendingSemicolonForAllItems {
+
+- (NSString *)fm_appendingAllItemsWith:(NSString *)str {
     if (!self.count) {
         return @"";
     }
@@ -21,9 +22,13 @@
         NSString *tmp = self[i];
         endstr = [endstr stringByAppendingString:[NSString stringWithFormat:@"%@",tmp]];
         if (i < self.count - 1 ) {
-            endstr = [endstr stringByAppendingString:[NSString stringWithFormat:@","]];
+            endstr = [endstr stringByAppendingString:str];
         }
     }
     return endstr;
+}
+
+- (NSString *)fm_appendingSemicolonForAllItems {
+    return [self fm_appendingAllItemsWith:@","];
 }
 @end

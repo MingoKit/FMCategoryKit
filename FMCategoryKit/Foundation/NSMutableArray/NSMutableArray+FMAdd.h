@@ -11,8 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSMutableArray (FMAdd)
-    /// 用“,”拼接每个一个字符串数组里面的元素
+    /// 用 输入的 “字符” 拼接每一个字符串数组里面的元素，末尾不拼接
+- (NSString *)fm_appendingAllItemsWith:(NSString *)str;
+
+    /// 用“,”拼接每个一个字符串数组里面的元素，末尾不拼接
 - (NSString *)fm_appendingSemicolonForAllItems;
+
 @end
 
 NS_ASSUME_NONNULL_END

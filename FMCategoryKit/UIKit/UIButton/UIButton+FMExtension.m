@@ -657,7 +657,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
         //倒计时结束，关闭
         if (timeOut == 0) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (normalColor)  self.backgroundColor = normalColor;
+                if (normalColor)   [self setTitleColor:normalColor forState:0];
                 [self setTitle:normalTitle forState:UIControlStateNormal];
                 self.userInteractionEnabled =YES;
                 dispatch_source_cancel(_timer);
@@ -674,7 +674,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
                 timeStr = [NSString stringWithFormat:@"%02ld:%02ld", minutes,seconds];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (countdownColor)  self.backgroundColor = countdownColor;
+                if (countdownColor)  [self setTitleColor:countdownColor forState:0];
                 NSString *obstr = [NSString stringWithFormat:@"%@%@%@",(beforeTitle.length ? beforeTitle : @""),timeStr,(behindTitle.length ? behindTitle : @"")];
                 if (!isFlashing) {
                     self.titleLabel.text = obstr ;
@@ -703,6 +703,19 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
         }
     });
     dispatch_resume(_timer);
+}
+
+
+-(void)setSelecedColor:(UIColor *)selecedColor {
+    if (selecedColor) {
+        [self setTitleColor:selecedColor forState:UIControlStateSelected];
+    }
+}
+
+-(void)setSelecedBgImage:(UIImage *)selecedBgImage {
+    if (selecedBgImage) {
+        [self setBackgroundImage:selecedBgImage forState:UIControlStateSelected];
+    }
 }
 
 @end

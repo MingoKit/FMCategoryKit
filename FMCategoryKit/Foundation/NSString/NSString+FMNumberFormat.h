@@ -29,6 +29,8 @@
 -(NSString *)fm_pointNum4;
 -(NSString *)fm_pointNum6;
 -(NSString *)fm_pointNum8;
+-(NSString *)fm_pointNum4NotFillZero;
+
 /// 保留几位小数。不足的是否补全位0
 -(NSString *)fm_pointNum:(NSInteger)pointNum fillnum:(BOOL)fillnum;
 @end

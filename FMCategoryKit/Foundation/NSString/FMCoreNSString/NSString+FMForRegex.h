@@ -89,7 +89,7 @@
 
 /** 判断一个字符串是纯数字1到9或者. */
 - (BOOL)fm_validateAllNumberAndDot;
-//密码
+//密码6-20
 - (BOOL)fm_validatePassword;
 //昵称
 - (BOOL)fm_validateNickname;

@@ -110,6 +110,9 @@
     return str;
 }
 
+-(NSString *)fm_pointNum4NotFillZero {
+    return [self fm_pointNum:4 fillnum:NO];
+}
 
 -(NSString *)fm_notRounding:(id)price afterPoint:(NSInteger)position fillnum:(BOOL)fillnum{
     

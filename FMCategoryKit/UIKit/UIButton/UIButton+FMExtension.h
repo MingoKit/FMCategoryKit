@@ -142,4 +142,8 @@ typedef void(^CloseBlock)(id objc);
 @property BOOL shouldAnimateBadge;
 
 
+#pragma mark - xib扩展
+
+@property (nonatomic, strong) IBInspectable UIColor *selecedColor;
+@property (nonatomic, strong) IBInspectable UIImage *selecedBgImage;
 @end
