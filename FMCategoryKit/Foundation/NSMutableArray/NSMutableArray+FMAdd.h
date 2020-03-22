@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     /// 用“,”拼接每个一个字符串数组里面的元素，末尾不拼接
 - (NSString *)fm_appendingSemicolonForAllItems;
-
+    /// 数组转json字符串
+- (NSString *)fm_arrToJsonString;
 @end
 
 NS_ASSUME_NONNULL_END

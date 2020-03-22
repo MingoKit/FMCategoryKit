@@ -35,4 +35,6 @@ typedef void(^UIViewClickHandle)(UIView *view);
 //设置圆角 (圆角大小 圆角宽度 圆角颜色)
 - (void)setCornerRadius:(CGFloat)cornerRadius borderWidth:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
 - (void)removeAllSubviews;
+/// view加虚线边框
+-(void)fm_addBottedlineWidth:(CGFloat)lineWidth lineColor:(UIColor *)lineColor;
 @end

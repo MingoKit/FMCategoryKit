@@ -72,4 +72,18 @@
     }
 }
 
+-(void)fm_addBottedlineWidth:(CGFloat)lineWidth lineColor:(UIColor *)lineColor{
+    CAShapeLayer *border = [CAShapeLayer layer];
+    border.strokeColor = lineColor.CGColor;
+    border.fillColor = nil;
+    border.path = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
+    border.frame = self.bounds;
+    border.lineWidth = lineWidth;
+    border.lineCap = @"square";
+        //设置线宽和线间距
+    border.lineDashPattern = @[@10, @5];
+    [self.layer addSublayer:border];
+}
+
+
 @end

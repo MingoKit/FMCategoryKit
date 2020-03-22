@@ -31,4 +31,11 @@
 - (NSString *)fm_appendingSemicolonForAllItems {
     return [self fm_appendingAllItemsWith:@","];
 }
+
+- (NSString *)fm_arrToJsonString{
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *string =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return string;
+}
+
 @end
