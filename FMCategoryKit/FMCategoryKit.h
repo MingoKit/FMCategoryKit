@@ -27,7 +27,6 @@ FOUNDATION_EXPORT const unsigned char FMCategoryKitVersionString[];
 #import <FMCategoryKit/FMCategoryKitUIDevice.h>
 #import <FMCategoryKit/FMCategoryKitUIControl.h>
 #import <FMCategoryKit/FMCategoryKitUIAlertView.h>
-#import <FMCategoryKit/FMCategoryKitUIWebView.h>
 #import <FMCategoryKit/FMCategoryKitUITextView.h>
 #import <FMCategoryKit/FMCategoryKitUIImageView.h>
 #import <FMCategoryKit/FMCategoryKitUITextField.h>
@@ -55,7 +54,6 @@ FOUNDATION_EXPORT const unsigned char FMCategoryKitVersionString[];
 #import "FMCategoryKitUIDevice.h"
 #import "FMCategoryKitUIControl.h"
 #import "FMCategoryKitUIAlertView.h"
-#import "FMCategoryKitUIWebView.h"
 #import "FMCategoryKitUITextView.h"
 #import "FMCategoryKitUIImageView.h"
 #import "FMCategoryKitUITextField.h"
