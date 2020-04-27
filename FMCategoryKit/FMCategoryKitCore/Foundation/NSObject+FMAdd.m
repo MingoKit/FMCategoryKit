@@ -14,12 +14,30 @@
 #import <objc/objc.h>
 #import <objc/runtime.h>
 #import <sys/utsname.h>
-
+static NSString *ktypeKey = @"ktypeKey"; //那么的key
+static NSString *knameKey = @"knameKey"; //那么的key
 
 YYSYNTH_DUMMY_CLASS(NSObject_FMAdd)
 
 
 @implementation NSObject (FMAdd)
+
+- (void)setKtype:(NSInteger)ktype {
+    objc_setAssociatedObject(self, &ktypeKey, @(ktype), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (NSInteger)ktype {
+    return [objc_getAssociatedObject(self, &ktypeKey) integerValue];
+}
+
+- (void)setKname:(NSString *)kname {
+    objc_setAssociatedObject(self, &knameKey,kname, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSString *)kname {
+    return objc_getAssociatedObject(self, &knameKey);
+}
+
 
 + (NSString *)version
 {

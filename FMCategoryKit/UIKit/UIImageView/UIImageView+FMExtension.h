@@ -20,6 +20,6 @@
  *  @brief  倒影
  */
 - (void)reflect;
-
-
+/// 改变图片的颜色 图片颜色
+- (void)fm_changeColor:(UIColor *)color;
 @end

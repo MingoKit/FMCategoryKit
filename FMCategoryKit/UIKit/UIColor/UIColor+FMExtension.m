@@ -54,7 +54,8 @@
     [gradientLayer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage*image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return [UIColor colorWithPatternImage:image];
+//    return [UIColor colorWithPatternImage:image];
+    return image;
 }
  
 

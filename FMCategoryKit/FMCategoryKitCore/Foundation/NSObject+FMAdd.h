@@ -18,6 +18,12 @@ typedef void (^KVOBlock)(NSDictionary *change, void *context);
  Common tasks for NSObject.
  */
 @interface NSObject (FMAdd)
+
+    /// VC通用NSInteger属性
+@property (nonatomic, assign) NSInteger ktype;
+    /// VC通用字符串属性
+@property (nonatomic, strong) NSString *kname;
+
 /** 版本号 */
 + (NSString *)version;
 

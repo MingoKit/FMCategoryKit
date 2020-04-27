@@ -111,16 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CGPoint origin;      ///< Shortcut for frame.origin.
 @property (nonatomic) CGSize  size;        ///< Shortcut for frame.size.
 
-/// NOTE：修改xib没有效果 清除Xcode缓存
-@property (nonatomic, assign) IBInspectable CGFloat clipRadius;
-@property (nonatomic, assign) IBInspectable CGFloat radius;
-@property (nonatomic, assign) IBInspectable CGFloat bWidth;
-@property (nonatomic, strong) IBInspectable UIColor *bColor;
 
-@property (nonatomic, assign) IBInspectable CGFloat shadowRadius;
-@property (nonatomic, strong) IBInspectable UIColor *shadowColor;
-@property (nonatomic, assign) IBInspectable CGFloat shadowOpacity;
-@property (nonatomic, assign) IBInspectable CGSize shadowOffset;
 @end
 
 

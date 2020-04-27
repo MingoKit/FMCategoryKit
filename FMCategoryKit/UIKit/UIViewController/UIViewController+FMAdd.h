@@ -32,10 +32,10 @@ typedef NS_ENUM(NSInteger, NativigationButtonType) {
 @interface UIViewController (FMAdd)
 #pragma mark - 获取当前屏幕显示的VC
 + (UIViewController *)fm_getCurrentViewController;
-/// VC通用NSInteger属性
-@property (nonatomic, assign) NSInteger ktype;
-/// VC通用字符串属性
-@property (nonatomic, strong) NSString *kname;
+///// VC通用NSInteger属性
+//@property (nonatomic, assign) NSInteger ktype;
+///// VC通用字符串属性
+//@property (nonatomic, strong) NSString *kname;
 
 #pragma mark - NavigationBar
 

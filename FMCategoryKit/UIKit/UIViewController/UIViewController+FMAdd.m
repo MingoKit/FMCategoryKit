@@ -40,35 +40,6 @@ static char overviewKey;
 
 @implementation UIViewController (FMAdd)
 
-/**
- setter方法
- */
-- (void)setKtype:(NSInteger)ktype {
-    objc_setAssociatedObject(self, &ktypeKey, @(ktype), OBJC_ASSOCIATION_ASSIGN);
-}
-
-/**
- getter方法
- */
-- (NSInteger)ktype {
-    return [objc_getAssociatedObject(self, &ktypeKey) integerValue];
-}
-
-
-/**
- setter方法
- */
-- (void)setKname:(NSString *)kname {
-    objc_setAssociatedObject(self, &knameKey,kname, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-/**
- getter方法
- */
-- (NSString *)kname {
-    return objc_getAssociatedObject(self, &knameKey);
-}
-
 #pragma mark - 获取当前屏幕显示的VC
 + (UIViewController *)fm_getCurrentViewController {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;

@@ -92,6 +92,10 @@
     
 }
 
-
+- (void)fm_changeColor:(UIColor *)color {
+        //看下面例子，首先对图片进行渲染，其次设置imageView的tintColor即可，
+    self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.tintColor = color;
+}
 
 @end

@@ -37,6 +37,7 @@
 #import <FMCategoryKit/UIBezierPath+FMAdd.h>
 #import <FMCategoryKit/CALayer+FMAdd.h>
 #import <FMCategoryKit/FMCGUtilities.h>
+#import <FMCategoryKit/UIView+FMXibStyle.h>
 
 #else
 
@@ -69,4 +70,5 @@
 #import "UIBezierPath+FMAdd.h"
 #import "CALayer+FMAdd.h"
 #import "FMCGUtilities.h"
+#import "UIView+FMXibStyle.h"
 #endif
