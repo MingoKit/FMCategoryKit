@@ -366,6 +366,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
     //设定时间格式,这里可以设置成自己需要的格式
+//    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *currentDateStr = [dateFormatter stringFromDate:[NSDate date]];
     

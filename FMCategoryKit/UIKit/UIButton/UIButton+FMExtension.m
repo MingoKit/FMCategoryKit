@@ -646,6 +646,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 
 - (void)fm_countdownTime:(NSInteger)timeLine normalTitle:(NSString *)normalTitle countNumBeforeTitle:(NSString *)beforeTitle countNumBehindTitle:(NSString *)behindTitle normalColor:(UIColor *)normalColor countdownColor:(UIColor *)countdownColor isFlashing:(BOOL)isFlashing cuntingEnabled:(BOOL)cuntingEnabled waitBlock:(void(^)(NSInteger remainTime))waitBlock finishBlock:(void(^)(void))finishBlock {
     __weak __typeof(self)weakSelf = self;
+   
     //倒计时时间
     __block NSInteger timeOut = timeLine;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -661,7 +662,9 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
                 [self setTitle:normalTitle forState:UIControlStateNormal];
                 self.userInteractionEnabled =YES;
                 dispatch_source_cancel(_timer);
-
+                if (timeLine <= 0) {
+                    return;
+                }
                 if (finishBlock) {
                     finishBlock();
                 }
@@ -695,7 +698,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
             weakSelf.closeBlock = ^(id objc) {
                 dispatch_source_cancel(_timer);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (normalColor)  weakSelf.backgroundColor = normalColor;
+//                    if (normalColor)  weakSelf.backgroundColor = normalColor;
                     [weakSelf setTitle:normalTitle forState:UIControlStateNormal];
                     weakSelf.userInteractionEnabled =YES;
                 });
